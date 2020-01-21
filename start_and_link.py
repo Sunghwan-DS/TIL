@@ -28,18 +28,11 @@ def make_teams(num, team):
         else:
             return
 
-    if num == 0:
-        for _ in range(0, N // 2):
-            team.append(_)
-            make_teams(num + 1, team)
-            team.remove(_)
-
-    else:
-        for i in range(max(team) + 1, N):
-            team.append(i)
-            make_teams(num + 1, team)
-            team.remove(i)
+    for i in range(max(team) + 1, N):
+        team.append(i)
+        make_teams(num + 1, team)
+        team.remove(i)
 
 
-make_teams(0, [])
+make_teams(1, [0])
 print(answer)
