@@ -2,12 +2,24 @@ N = int(input())
 people = list(map(int, input().split()))
 people.insert(0, 0)
 connection = [[]]
-answer = 10000
+answer = 1000
 for _ in range(N):
     a = list(map(int, input().split()))
     del a[0]
     connection.append(a)
 
+
+def checking(team):
+    check_list = [team[0]]
+    for _ in range(len(team)-1):
+        for i in check_list:
+            for j in connection[i]:
+                if j not in check_list and j in team:
+                    check_list.append(j)
+    if len(check_list) == len(team):
+        return True
+    else:
+        return False
 
 
 def making_team(index, A, B):
@@ -16,27 +28,11 @@ def making_team(index, A, B):
         if B == []:
             return
 
-        for i in A:
-            TF = False
-            for j in A:
-                if j in connection[i]:
-                    TF = True
-                    break
-                else:
-                    pass
-            if not TF:
-                return
+        if not checking(A):
+            return
 
-        for i in B:
-            TF = False
-            for j in B:
-                if j in connection[i]:
-                    TF = True
-                    break
-                else:
-                    pass
-            if not TF:
-                return
+        if not checking(B):
+            return
 
         sumA = 0
         sumB = 0
@@ -52,7 +48,6 @@ def making_team(index, A, B):
 
         return
 
-
     A_new = A[:]
     B_new = B[:]
     A_new.append(index+1)
@@ -62,7 +57,7 @@ def making_team(index, A, B):
 
 
 making_team(1, [1], [])
-if answer == 10000:
+if answer == 1000:
     print("-1")
     exit()
 print(answer)
