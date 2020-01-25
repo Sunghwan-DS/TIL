@@ -15,16 +15,16 @@ def rotation(r, c, s, arr):
 
     for shell in range(1, s+1):
         for x in range(2*shell):
-            new_arr[r-shell-1+x][c-shell-1] = arr[r-shell+x][c-shell-1]
+            new_arr[r-1-shell][c-1-shell+1+x] = arr[r-1-shell][c-1-shell+x]
 
         for x in range(2*shell):
-            new_arr[r+shell-1][c-shell-1+x] = arr[r+shell-1][c-shell+x]
+            new_arr[r-1-shell+1+x][c-1+shell] = arr[r-1-shell+x][c-1+shell]
 
         for x in range(2*shell):
-            new_arr[r+shell-1-x][c+shell-1] = arr[r+shell-2-x][c+shell-1]
+            new_arr[r-1+shell][c-1+shell-1-x] = arr[r-1+shell][c-1+shell-x]
 
         for x in range(2*shell):
-            new_arr[r-shell-1][c+shell-1-x] = arr[r-shell-1][c+shell-2-x]
+            new_arr[r-1+shell-1-x][c-1-shell] = arr[r-1+shell-x][c-1-shell]
 
 
 def sequence(index, K, table):
