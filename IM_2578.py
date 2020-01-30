@@ -14,7 +14,7 @@ def checking(i, j):
         else:
             yx[0] = 1
 
-    elif i + j == 4:
+    if i + j == 4:
         for _ in range(5):
             if field[0+_][4-_] != 0:
                 break
