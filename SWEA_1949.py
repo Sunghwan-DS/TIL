@@ -1,21 +1,44 @@
-def BFS(p):
-    global queue, result
-    TF = True
-    if p[0] - 1 >= 0 and field[p[0]][p[1]] > field[p[0]-1][p[1]]:
-        queue.append([p[0]-1, p[1], p[2]+1])
-        TF = False
-    if p[0] + 1 <= N-1 and field[p[0]][p[1]] > field[p[0]+1][p[1]]:
-        queue.append([p[0]+1, p[1], p[2]+1])
-        TF = False
-    if p[1] - 1 >= 0 and field[p[0]][p[1]] > field[p[0]][p[1]-1]:
-        queue.append([p[0], p[1]-1, p[2]+1])
-        TF = False
-    if p[1] + 1 <= N-1 and field[p[0]][p[1]] > field[p[0]][p[1]+1]:
-        queue.append([p[0], p[1]+1, p[2]+1])
-        TF = False
-    if TF:
-        if result < p[2]:
-            result = p[2]
+def DFS(y, x, k, cnt):
+    global result
+    print(cnt,y, x)
+    if y - 1 >= 0:
+        if field[y][x] > field[y-1][x]:
+            DFS(y-1, x, k, cnt+1)
+        elif field[y][x] > field[y-1][x] - k:
+            pre = field[y-1][x]
+            field[y-1][x] = field[y][x] - 1
+            DFS(y-1, x, 0, cnt+1)
+            field[y-1][x] = pre
+
+    if y + 1 <= N-1:
+        if field[y][x] > field[y+1][x]:
+            DFS(y+1, x, k, cnt+1)
+        elif field[y][x] > field[y+1][x] - k:
+            pre = field[y+1][x]
+            field[y+1][x] = field[y][x] - 1
+            DFS(y+1, x, 0, cnt+1)
+            field[y+1][x] = pre
+
+    if x - 1 >= 0:
+        if field[y][x] > field[y][x-1]:
+            DFS(y, x-1, k, cnt+1)
+        elif field[y][x] > field[y][x-1] - k:
+            pre = field[y][x-1]
+            field[y][x-1] = field[y][x] - 1
+            DFS(y, x-1, 0, cnt+1)
+            field[y][x-1] = pre
+
+    if x + 1 <= N-1:
+        if field[y][x] > field[y][x+1]:
+            DFS(y, x+1, k, cnt+1)
+        elif field[y][x] > field[y][x+1] - k:
+            pre = field[y][x+1]
+            field[y][x+1] = field[y][x] - 1
+            DFS(y, x+1, 0, cnt+1)
+            field[y][x+1] = pre
+
+    if result < cnt:
+        result = cnt
 
 T = int(input())
 for case in range(1, T+1):
@@ -32,14 +55,10 @@ for case in range(1, T+1):
     for i in range(N):
         for j in range(N):
             if field[i][j] == max_num:
-                start.append([i, j, 1])
-
-    queue = start
+                start.append([i, j])
 
     result = 0
 
-    while queue:
-        for i in range(len(queue)):
-            current = queue.pop(0)
-            BFS(current)
+    for i in start:
+        DFS(i[0], i[1], K, 1)
     print("#%d %d"%(case, result))
