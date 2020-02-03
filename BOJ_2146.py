@@ -19,6 +19,8 @@ def BFS(y, x, value):
     dy = [-1, 0, 1, 0]
     dx = [0, 1, 0, -1]
     cnt = 0
+    new_field = [[False] * N for i in range(N)]
+    new_field[y][x] = True
     while queue:
         for num in range(len(queue)):
             lst = queue.pop(0)
@@ -26,10 +28,14 @@ def BFS(y, x, value):
             x = lst[1]
             for dir in range(4):
                 if 0 <= y + dy[dir] <= N - 1 and 0 <= x + dx[dir] <= N - 1:
+                    new_field[y + dy[dir]][x + dx[dir]] = True
                     if field[y + dy[dir]][x + dx[dir]] == value:
                         pass
                     elif field[y + dy[dir]][x + dx[dir]] == 0:
-                        queue.append([y + dy[dir], x + dx[dir]])
+                        if new_field[y + dy[dir]][x + dx[dir]]:
+                            continue
+                        else:
+                            queue.append([y + dy[dir], x + dx[dir]])
                     elif field[y + dy[dir]][x + dx[dir]] != 0:
                         if cnt < result:
                             result = cnt
