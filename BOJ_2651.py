@@ -1,49 +1,25 @@
 B = int(input())
 N = int(input())
-distance = list(map(int,input().split()))   # N+1개의 자료
-time = list(map(int,input().split()))      # N+1개의 자료
+dis_data = list(map(int,input().split()))
+time = list(map(int,input().split()))
 
-queue = [[B,0,[]]]   # 갈수있는 거리, n번째 장소, 들른 주유소
+distance = [0] * (N+2)
+for idx, i in enumerate(dis_data):
+    distance[idx+1] = distance[idx] + i
 
-result = []
-if B >= sum(distance):
-    print("0")
-    print("0")
-    print("")
-    exit()
+time = [0] + time + [0]
+min_time = [9999999] * (N+2)
+min_time[0] = 0
+cnt = [0] * (N+2)
+place = [[] for _ in range(N+2)]
 
-while queue:
-    size = len(queue)
-    test = []
-    for i in range(size):
-        a = queue.pop(0)
-        if a[1] == N:
-            if a[0] - distance[a[1]] >= 0:
-                t = 0
-                for __ in a[2]:
-                    t += time[__-1]
-                result.append(t)
-                if t == min(result):
-                    lst = a[2]
-                continue
+for i in range(1, N+2):
+    for j in range(i-1, -1, -1):
+        if distance[i] - distance[j] <= B and min_time[i] > min_time[j]+time[i]:
+            min_time[i] = min_time[j] + time[i]
+            cnt[i] = cnt[j] + 1
+            place[i] = place[j] + [str(i)]
 
-        if a[0] - distance[a[1]] >= 0:
-            queue.append([a[0]-distance[a[1]], a[1]+1, a[2]])
-            next = a[2][:]
-            next.append(a[1]+1)
-            test.append([B, a[1]+1, next])
-
-    t_lst = []
-    for j in test:
-        t = 0
-        for __ in j[2]:
-            t += time[__ - 1]
-            t_lst.append(t)
-    if t_lst == []:
-        break
-    b = t_lst.index(min(t_lst))
-    queue.append(test[b])
-
-print(min(result))
-print(len(lst))
-print(" ".join([str(i) for i in lst]))
+print(min_time[-1])
+print(cnt[-1]-1)
+print(" ".join([str(i) for i in place[-1][:-1]]))
