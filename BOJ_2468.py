@@ -1,28 +1,19 @@
-def counting():
-    new_arr = []
-    cnt = 0
-    for _ in range(N):
-        new_arr.append(arr[_])
-    for i in range(N):
-        for j in range(N):
-            if new_arr[i][j] != 0:
-                cnt += 1
-                queue = [[i, j]]
-                while queue:
-                    current = queue.pop(-1)
-                    y = current[0]
-                    x = current[1]
-                    new_arr[y][x] = 0
-                    for dir in range(4):
-                        if 0 <= y+dy[dir] <= N-1 and 0 <= x+dx[dir] <= N-1:
-                            if new_arr[y+dy[dir]][x+dx[dir]] != 0:
-                                queue.append([y+dy[dir], x+dx[dir]])
-    return cnt
+def DFS(y, x, rain):
+    queue = [[y, x]]
+    while queue:
+        for _ in range(len(queue)):
+            current = queue.pop(-1)
+            for dir in range(4):
+                ny = current[0] + dy[dir]
+                nx = current[1] + dx[dir]
+                if 0 <= ny <= N-1 and 0 <= nx <= N-1 and visited[ny][nx] and arr[ny][nx] > rain:
+                    visited[ny][nx] = False
+                    queue.append([ny,nx])
+
 
 N = int(input())
 arr = []
 rain = []
-table = [[] * 101]
 dy = [-1, 0, 1, 0]
 dx = [0, 1, 0, -1]
 for i in range(N):
@@ -30,19 +21,21 @@ for i in range(N):
     for j in range(N):
         if arr[i][j] not in rain:
             rain.append(arr[i][j])
-        table[arr[i][j]].append([i, j])
 rain.sort()
 
-visited = [False * N for _ in range(N)]
 
-result = 0
-
-for i in rain:
+result = 1
+for r in rain:
+    visited = [[True] * N for _ in range(N)]
     cnt = 0
-    for j in table[i]:
-        arr[j[0]][j[1]] = 0
-    t = counting()
-    if result < t:
-        result = t
+    for i in range(N):
+        for j in range(N):
+            if arr[i][j] > r and visited[i][j]:
+                cnt += 1
+                visited[i][j] = False
+                DFS(i,j,r)
+
+    if result < cnt:
+        result = cnt
 
 print(result)
