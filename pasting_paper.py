@@ -6,9 +6,10 @@ def pasting(i, j, count, field, use):
     if i == 9 and j == 9:
         if field[i][j] == 1:
             count += 1
+            if use[0] == 5:
+                return
         if result > count:
             result = count
-            # print(use)
         return
 
     if count == result:
