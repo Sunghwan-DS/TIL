@@ -27,10 +27,10 @@ def go(d1, d2, d3, d4, idx, score):
 
 
     if dt1[d1+n] == dt2[d2] or dt1[d1+n] == dt3[d3] or dt1[d1+n] == dt4[d4]:
-        if dt1[d1+n] == 10 or dt1[d1+n] == 20 or dt1[d1+n] == 30:
+        if dt1[d1+n] not in [16, 22, 24, 26, 28, 30]:
             pass
-        elif dt1 == dt2 or dt1 == dt3 or dt1 == dt4:
-            pass
+        # elif dt1 == dt2 or dt1 == dt3 or dt1 == dt4:
+        #     pass
         else:
             score1 = score + dt1[d1 + n]
             go(d1 + n, d2, d3, d4, idx + 1, score1)
@@ -40,10 +40,10 @@ def go(d1, d2, d3, d4, idx, score):
 
 
     if dt2[d2 + n] == dt1[d1] or dt2[d2 + n] == dt3[d3] or dt2[d2 + n] == dt4[d4]:
-        if dt2[d2+n] == 10 or dt2[d2+n] == 20 or dt2[d2+n] == 30:
+        if dt2[d2+n] not in [16, 22, 24, 26, 28, 30]:
             pass
-        elif dt2 == dt1 or dt2 == dt3 or dt2 == dt4:
-            pass
+        # elif dt2 == dt1 or dt2 == dt3 or dt2 == dt4:
+        #     pass
         else:
             score2 = score + dt2[d2 + n]
             go(d1, d2 + n, d3, d4, idx + 1, score2)
@@ -53,10 +53,10 @@ def go(d1, d2, d3, d4, idx, score):
 
 
     if dt3[d3 + n] == dt1[d1] or dt3[d3 + n] == dt2[d2] or dt3[d3 + n] == dt4[d4]:
-        if dt3[d3+n] == 10 or dt3[d3+n] == 20 or dt3[d3+n] == 30:
+        if dt3[d3+n] not in [16, 22, 24, 26, 28, 30]:
             pass
-        elif dt3 == dt1 or dt3 == dt2 or dt3 == dt4:
-            pass
+        # elif dt3 == dt1 or dt3 == dt2 or dt3 == dt4:
+        #     pass
         else:
             score3 = score + dt3[d3 + n]
             go(d1, d2, d3 + n, d4, idx + 1, score3)
@@ -66,10 +66,10 @@ def go(d1, d2, d3, d4, idx, score):
 
 
     if dt4[d4 + n] == dt1[d1] or dt4[d4 + n] == dt2[d2] or dt4[d4 + n] == dt3[d3]:
-        if dt4[d4 + n] == 10 or dt4[d4 + n] == 20 or dt4[d4 + n] == 30:
+        if dt4[d4 + n] not in [16, 22, 24, 26, 28, 30]:
             pass
-        elif dt4 == dt1 or dt4 == dt2 or dt4 == dt3:
-            pass
+        # elif dt4 == dt1 or dt4 == dt2 or dt4 == dt3:
+        #     pass
         else:
             score4 = score + dt4[d4 + n]
             go(d1, d2, d3, d4 + n, idx + 1, score4)
@@ -92,15 +92,15 @@ table_10 += [0] * 34
 table_15 += [0] * 28
 
 # print(len(table_0), len(table_5), len(table_10), len(table_15))
-#
-# arr = []
-# arr.append(table_0)
-# arr.append(table_5)
-# arr.append(table_10)
-# arr.append(table_15)
-#
-# for i in range(4):
-#     print(arr[i])
+# #
+# # arr = []
+# # arr.append(table_0)
+# # arr.append(table_5)
+# # arr.append(table_10)
+# # arr.append(table_15)
+# #
+# # for i in range(4):
+# #     print(arr[i])
 
 dt1 = table_0
 dt2 = table_0
