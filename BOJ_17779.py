@@ -4,9 +4,9 @@ arr = [list(map(int,input().split())) for _ in range(N)]
 result = []
 for i in range(N):
     for j in range(N):
-        for d1 in range(1, min(i, N-j)+1):
-            for d2 in range(1, min(N-i-1, N-j)+1):
-                if j + d1 + d2 <= N-1:
+        for d1 in range(1, min(j, N-i-1)+1):
+            for d2 in range(1, min(N-j-1, N-i-1)+1):
+                if i + d1 + d2 <= N-1:
                     value1 = 0
                     value2 = 0
                     value3 = 0
