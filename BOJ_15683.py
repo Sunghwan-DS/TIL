@@ -1,6 +1,6 @@
 def shutter(y, x, case):
     global n
-    test_arr = [arr[i][:] for i in range(N)]
+    new_arr = [arr[i][:] for i in range(N)]
     for i in range(n):
         if cctv[i][3] == 1:
 
@@ -13,8 +13,14 @@ def shutter(y, x, case):
 
 
 
-def cctv_set():
-    for i in
+def cctv_set(idx, lst):
+    if idx == n+1:
+        shutter(lst)
+
+    for d in range(4):
+        lst.append(d)
+        cctv_set(idx+1, lst)
+        lst.pop(-1)
 
 
 N, M = map(int,input().split())
@@ -26,3 +32,4 @@ for i in range(N):
             cctv.append([i, j, arr[i][j]])
 
 n = len(cctv)
+cctv_set(0, [])
