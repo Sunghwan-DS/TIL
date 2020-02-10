@@ -16,6 +16,7 @@ def move(y_R, x_R, y_B, x_B, dir, idx):
                 result = idx + 1
             return
 
+
         while arr[y_B + dy[dir]][x_B + dx[dir]] == '.':
             y_R += dy[dir]
             x_R += dx[dir]
@@ -42,6 +43,8 @@ for i in range(N):
         if arr[i][j] == "B":
             y_B = i
             x_B = j
+
+list(map(int,list(input())))
 
 result = 20
 
