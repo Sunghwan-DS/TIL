@@ -1,24 +1,51 @@
-for case in range(1, 11):
-    N = int(input())
-    arr = [list(map(int,input().split())) for _ in range(N)]
-    ans = 0
-    for j in range(N):
-        i = 0
-        cnt = 0
-        while i < N:
-            if arr[i][j] == 1:
-                cnt += 1
-                s = 1
-                break
-            i += 1
+N, M = map(int,input().split())
+price = [[0] * (N+1) for _ in range(N+1)]
+min_val = [999999] * (N + 1)
 
-        i += 1
-        while i < N:
-            if arr[i][j] != 0 and arr[i][j] != s:
-                cnt += 1
-                s = arr[i][j]
-            i += 1
 
-        ans += cnt//2
+for i in range(M):
+    a, b, val = map(int,input().split())
+    price[a][b] = val
 
-    print("#%d"%(case), ans)
+
+queue = [(1, 0)]
+min_val[1] = 0
+
+while queue:
+    print(queue)
+    current, p = queue.pop(0)
+    if p > min_val[current]:
+        continue
+    for arrive, val in enumerate(price[current]):
+        new_val = p + price[current][arrive]
+        if val and min_val[arrive] > new_val:
+            min_val[arrive] = new_val
+            queue.append((arrive, new_val))
+
+
+print(min_val)
+
+
+# T = int(input())
+# for case in range(1, T+1):
+#     N, E = map(int,input().split())
+#     price = [[0] * (N + 1) for _ in range(N + 1)]
+#     min_val = [999999] * (N + 1)
+#     for t in range(E):
+#         s, e, w = map(int,input().split())
+#         price[s][e] = w
+#
+#
+#     q = [(0,0)]
+#     min_val[0] = 0
+#     while q:
+#         print(q)
+#         current, p = q.pop(0)
+#         if p > min_val[current]:
+#             continue
+#         for arrive, val in enumerate(price[current]):
+#             new_val = p + price[current][arrive]
+#             if val and min_val[arrive] > new_val:
+#                 min_val[arrive] = new_val
+#                 q.append((arrive, new_val))
+#     print("#%d"%(case), min_val[N])
