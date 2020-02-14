@@ -1,51 +1,21 @@
-N, M = map(int,input().split())
-price = [[0] * (N+1) for _ in range(N+1)]
-min_val = [999999] * (N + 1)
+def getpartialmatch(N):
+    m = len(N)
+    pi = [0] * m
+    begin = 1
+    matched = 0
+    while begin + matched < m:
+        if N[begin + matched] == N[matched]:
+            matched += 1
+            pi[begin + matched - 1] = matched
+        else:
+            if matched == 0:
+                begin += 1
+            else:
+                begin += matched - pi[matched - 1]
+                matched = pi[matched - 1]
+    return pi
 
-
-for i in range(M):
-    a, b, val = map(int,input().split())
-    price[a][b] = val
-
-
-queue = [(1, 0)]
-min_val[1] = 0
-
-while queue:
-    print(queue)
-    current, p = queue.pop(0)
-    if p > min_val[current]:
-        continue
-    for arrive, val in enumerate(price[current]):
-        new_val = p + price[current][arrive]
-        if val and min_val[arrive] > new_val:
-            min_val[arrive] = new_val
-            queue.append((arrive, new_val))
-
-
-print(min_val)
-
-
-# T = int(input())
-# for case in range(1, T+1):
-#     N, E = map(int,input().split())
-#     price = [[0] * (N + 1) for _ in range(N + 1)]
-#     min_val = [999999] * (N + 1)
-#     for t in range(E):
-#         s, e, w = map(int,input().split())
-#         price[s][e] = w
-#
-#
-#     q = [(0,0)]
-#     min_val[0] = 0
-#     while q:
-#         print(q)
-#         current, p = q.pop(0)
-#         if p > min_val[current]:
-#             continue
-#         for arrive, val in enumerate(price[current]):
-#             new_val = p + price[current][arrive]
-#             if val and min_val[arrive] > new_val:
-#                 min_val[arrive] = new_val
-#                 q.append((arrive, new_val))
-#     print("#%d"%(case), min_val[N])
+# N = int(input())
+sentence = input()
+print(len(sentence) - getpartialmatch(sentence)[-1])
+print(list(getpartialmatch(sentence)))
