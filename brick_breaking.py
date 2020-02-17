@@ -1,93 +1,68 @@
-def just_brick(field, y, x):
-    new_field = [field[__] for __ in range(H)]
-    bomb = new_field[y][x]
-    if bomb == 0:
-        return
-    new_field[y][x] = 0
-    for __ in range(1, bomb):
-        if x + __ > W-1:
-            pass
-        else:
-            new_field = just_brick(new_field, y, x+__)
-        if y + __ > H-1:
-            pass
-        else:
-            new_field = just_brick(new_field, y+__, x)
-        if x - __ < 0:
-            pass
-        else:
-            new_field = just_brick(new_field, y, x-__)
-        if y - __ < 0:
-            pass
-        else:
-            new_field = just_brick(new_field, y -__, x)
-    return new_field
+import itertools
 
-
-def breaking(index, field, site):
-    global result
-    if index == N:
-        cnt = 0
-        for __ in range(H):
-            cnt += field[__].count(0)
-        if result > W * H -cnt:
-            result = W * H - cnt
-        # print(result)
-        return
-
-    new_field = [field[__] for __ in range(H)]
-
+def go(j):
     for i in range(H):
-        if new_field[i][site] != 0:
-            bomb = new_field[i][site]
-            new_field[i][site] = 0
-
-            for __ in range(1, bomb):
-                if site + __ > W-1:
-                    pass
-                else:
-                    new_field = just_brick(new_field, i, site+__)
-                if i + __ > H-1:
-                    pass
-                else:
-                    new_field = just_brick(new_field, i+__, site)
-                if site - __ < 0:
-                    pass
-                else:
-                    new_field = just_brick(new_field, i, site-__)
-
-
+        if new[i][j] != 0:
+            bomb(i, j)
             break
 
-    
+
+def bomb(y, x):
+    global H, W
+    val = new[y][x]
+    new[y][x] = 0
+
+    for len in range(1, val):
+        for dir in range(4):
+            ny = y + len * dy[dir]
+            nx = x + len * dx[dir]
+
+            if 0 <= ny <= H-1 and 0 <= nx <= W-1 and new[ny][nx] != 0:
+                bomb(ny, nx)
 
 
-
-
-
-
-
+def gravity():
     for j in range(W):
-        if new_field[H-1][j] == 0:
-            pass
-        else:
-            breaking(index+1, new_field, j)
+        i = H-1
+        while new[i][j] != 0 and i >= 0:
+            i -= 1
 
+        save = i
+        i -= 1
 
+        while i >= 0:
+            if new[i][j] != 0:
+                new[save][j] = new[i][j]
+                new[i][j] = 0
+                save -= 1
+            i -= 1
 
-
-
+dy = [0, 1, 0, -1]
+dx = [1, 0, -1, 0]
 
 T = int(input())
-for _ in range(T):
-    N, W, H = map(int, input().split())
-    field_original = [list(map(int, input().split())) for __ in range(H)]
-    result = 100
-    for j in range(10):
-        if field_original[9][j] == 0:
-            pass
-        else:
-            breaking(0, field_original, j)
+for case in range(1, T+1):
+    N, W, H = map(int,input().split())
+    arr = [list(map(int,input().split())) for _ in range(H)]
+    lst = list(itertools.product([i for i in range(W)], repeat = N))
+    ans = 180
 
+    for a in lst:
+        new = [arr[_][:] for _ in range(H)]
 
-    print("#%d %d"%(_ + 1, result))
+        for b in a:
+            go(b)
+            gravity()
+
+        res = 0
+        for i in range(H):
+            for j in range(W):
+                if new[i][j] != 0:
+                    res += 1
+
+        ans = min(ans, res)
+
+        if ans == 0:
+            break
+
+    print("#%d"%(case), ans)
