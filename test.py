@@ -1,29 +1,22 @@
-def match(low, high):
-    if low == high:
-        return high
+def plus(a, b):
+    return a+b
 
-    a = match(low, (low + high) // 2)
-    b = match((low + high) // 2 + 1, high)
+def minus(a, b):
+    return a-b
 
-    if player[a] > player[b]:
-        if player[a] == 3 and player[b] == 1:
-            return b
-        else:
-            return a
+def mul(a, b):
+    return a*b
 
-    elif player[a] == player[b]:
-        return min(a, b)
-
+def div(a, b):
+    try:
+        res = a/b
+    except ZeroDivisionError:
+        return '0으로는 나눌 수 없습니다.'
     else:
-        if player[a] == 1 and player[b] == 3:
-            return a
-        else:
-            return b
+        return res
 
-
-T = int(input())
-for case in range(1, T+1):
-    N = int(input())
-    player = list(map(int,input().split()))
-    player.insert(0, 0)
-    print("#%d"%(case), match(1, N))
+print(plus(3, 5))
+print(minus(10, 7))
+print(mul(5, 5))
+print(div(10, 2))
+print(div(10, 0))
