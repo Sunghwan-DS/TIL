@@ -1,22 +1,51 @@
-def plus(a, b):
-    return a+b
+# class Calculator:
+#     count = 0
+#
+#     def info(self):
+#         print('나는 계산기 입니다.')
+#
+#     @staticmethod
+#     def add(a, b):
+#         Calculator.count += 1
+#         print('{0} + {1}는 {2} 입니다.'.format(a, b, a+b))
+#
+#     @classmethod
+#     def history(cls):
+#         print('총 {}번 계산 했습니다.'.format(cls.count))
+#
+# a = Calculator()
+# a.info()
+# a.add(1, 2)
+# a.history()
 
-def minus(a, b):
-    return a-b
+class Animal:
+    def __init__(self, name):
+        self.name = name
 
-def mul(a, b):
-    return a*b
+    def walk(self):
+        print('{}! 걷는다!'.format(self.name))
 
-def div(a, b):
-    try:
-        res = a/b
-    except ZeroDivisionError:
-        return '0으로는 나눌 수 없습니다.'
-    else:
-        return res
+    def eat(self):
+        print('{}! 먹는다!'.format(self.name))
 
-print(plus(3, 5))
-print(minus(10, 7))
-print(mul(5, 5))
-print(div(10, 2))
-print(div(10, 0))
+
+class Dog(Animal):
+    def walk(self):
+        print('{}! 달린다!'.format(self.name))
+
+    def run(self):
+        print('{}! 달린다!'.format(self.name))
+
+
+class Bird(Animal):
+    def fly(self):
+        print('{}! 푸드덕!'.format(self.name))
+
+dog = Dog('멍멍이')
+dog.walk()
+dog.run()
+
+bird = Bird('구구')
+bird.walk()
+bird.eat()
+bird.fly()
