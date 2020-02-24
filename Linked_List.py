@@ -65,24 +65,21 @@ class LinkedList:
         return self.num_of_data
 
 
-
-l_list = LinkedList()
-l_list.append(5)
-l_list.append(2)
-l_list.append(1)
-l_list.append(2)
-l_list.append(7)
-l_list.append(2)
-l_list.append(11)
-
-print('first :', l_list.first())      # first : 5
-print('next :', l_list.next())        # next : 2
-print('size :', l_list.size())        # size : 7
-print('delete :', l_list.delete())    # delete : 2
-print('size :', l_list.size())        # size : 6
-print('current:', l_list.current.data)# current: 5
-print('tail:', l_list.tail.data)      # tail: 11
-print('first :', l_list.first())      # first : 5
-print('next :', l_list.next())        # next : 1
-print('next :', l_list.next())        # next : 2
-print('next :', l_list.next())        # next : 7
+# LList = LinkedList()
+# LList.append(1)
+# LList.append(2)
+# LList.append(3)
+# LList.append(4)
+# # LList = ["dummy", 1, 2, 3, 4] 와 같은 모습을 상상하면 된다.
+#
+# print('first :', LList.first())         # first : 1
+# print('second :', LList.next())         # second : 2
+# print('third :', LList.next())          # third : 3
+# print('tail :', LList.next())           # tail : 4
+# print('size :', LList.size())           # size : 4
+# LList.first()
+# LList.next()
+# print('current:', LList.current.data)   # current: 2 (first로 간 다음 next로 한 번 이동하였으므로 두 번째 값)
+# print('pop_data :', LList.delete())     # pop_data : 2
+# print('current:', LList.current.data)   # current: 1 (delete 메소드 사용 후 탐색 위치는 삭제한 노드 바로 앞)
+# print('size :', LList.size())           # size : 3 (노드 하나를 삭제했으므로 size는 3)
