@@ -56,8 +56,8 @@ for _ in range(N):
     arr.append(list(map(int,input().split())))
 
 for _ in range(T):
-    x, d, k = map(int,input().split())
-    rotation(x, d, k)
+    W, d, k = map(int, input().split())
+    rotation(W, d, k)
 
 result = 0
 for i in range(N):

@@ -1,11 +1,11 @@
 def checking(i, j):
     if max(field[i]) == 0:
-        y[i] = 1
+        H[i] = 1
     for _ in range(5):
         if field[_][j] != 0:
             break
     else:
-        x[j] = 1
+        W[j] = 1
 
     if i==j:
         for _ in range(5):
@@ -20,12 +20,12 @@ def checking(i, j):
                 break
         else:
             yx[1] = 1
-    return sum(x) + sum(y) + sum(yx)
+    return sum(W) + sum(H) + sum(yx)
 
 
 field = []
-y = [0, 0, 0, 0, 0]
-x = [0, 0, 0, 0, 0]
+H = [0, 0, 0, 0, 0]
+W = [0, 0, 0, 0, 0]
 yx = [0, 0]
 for _ in range(5):
     field.append(list(map(int,input().split())))

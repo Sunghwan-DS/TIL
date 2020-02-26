@@ -43,11 +43,11 @@ while q:
     time += 1
     last_cheese = len(q)
     for i in range(len(q)):
-        y, x = q.pop(0)
+        H, W = q.pop(0)
 
         for dir in range(4):
-            ny = y + dy[dir]
-            nx = x + dx[dir]
+            ny = H + dy[dir]
+            nx = W + dx[dir]
 
             if 0 <= ny <= N-1 and 0 <= nx <= M-1 and not visited[ny][nx]:
                 if arr[ny][nx] == 1:

@@ -14,18 +14,18 @@ for _ in range(cut):
 max_y = 0
 max_x = 0
 cnt = 0
-for y in table_y:
+for H in table_y:
     cnt += 1
-    if y:
+    if H:
         pass
     else:
         if cnt > max_y:
             max_y = cnt
         cnt = 0
 
-for x in table_x:
+for W in table_x:
     cnt += 1
-    if x:
+    if W:
         pass
     else:
         if cnt > max_x:

@@ -16,38 +16,38 @@ if check == []:
 new_check = []
 cnt = 0
 while True:
-    for h, i, j in check:
+    for H, i, j in check:
         if j-1 >= 0:
-            if field[h][i][j-1] == 0:
-                field[h][i][j-1] = 1
-                new_check.append([h, i, j-1])
+            if field[H][i][j - 1] == 0:
+                field[H][i][j - 1] = 1
+                new_check.append([H, i, j - 1])
         if j+1 <= M-1:        
-            if field[h][i][j+1] == 0:
-                field[h][i][j+1] = 1
-                new_check.append([h, i, j+1])
+            if field[H][i][j + 1] == 0:
+                field[H][i][j + 1] = 1
+                new_check.append([H, i, j + 1])
         if i-1 >= 0:
-            if field[h][i-1][j] == 0:
-                field[h][i-1][j] = 1
-                new_check.append([h, i-1, j])
+            if field[H][i - 1][j] == 0:
+                field[H][i - 1][j] = 1
+                new_check.append([H, i - 1, j])
         if i+1 <= N-1:
-            if field[h][i+1][j] == 0:
-                field[h][i+1][j] = 1
-                new_check.append([h, i+1, j])
-        if h-1 >= 0:
-            if field[h-1][i][j] == 0:
-                field[h-1][i][j] = 1
-                new_check.append([h-1, i, j])
-        if h+1 <= H-1: 
-            if field[h+1][i][j] == 0:
-                field[h+1][i][j] = 1
-                new_check.append([h+1, i, j])
+            if field[H][i + 1][j] == 0:
+                field[H][i + 1][j] = 1
+                new_check.append([H, i + 1, j])
+        if H-1 >= 0:
+            if field[H - 1][i][j] == 0:
+                field[H - 1][i][j] = 1
+                new_check.append([H - 1, i, j])
+        if H+1 <= H-1:
+            if field[H + 1][i][j] == 0:
+                field[H + 1][i][j] = 1
+                new_check.append([H + 1, i, j])
     
     if new_check == []:
         TFTF = False
-        for h in range(H):
+        for H in range(H):
             for i in range(N):
                 for j in range(M):
-                    if field[h][i][j] == 0:
+                    if field[H][i][j] == 0:
                         TFTF = True 
         break
 

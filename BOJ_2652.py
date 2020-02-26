@@ -1,5 +1,5 @@
 def puzzle(start_y, start_x):
-    global y, x
+    global H, W
     y1 = start_y
     y2 = start_y
     x1 = start_x
@@ -51,7 +51,7 @@ def puzzle(start_y, start_x):
 
 
 N = int(input())
-u, v, w, x, y = map(int,input().split())
+u, v, w, W, H = map(int, input().split())
 square = []
 
 arr = []

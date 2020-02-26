@@ -1,5 +1,5 @@
 def move(dir):
-    global y, x
+    global H, W
     if dir == 1:
         if x+1 >= M:
             return
@@ -32,7 +32,7 @@ def move(dir):
 
     return print(dice[0])
 
-N, M, y, x, K = map(int,input().split())
+N, M, H, W, K = map(int, input().split())
 arr = [list(map(int,input().split())) for _ in range(N)]
 go = list(map(int,input().split()))
 dice = [0, 0, 0, 0, 0, 0]

@@ -15,16 +15,16 @@ for _ in range(999, -1, -1):
         break
 
 result = 0
-h = 0
+H = 0
 for _ in range(idx1):
-    if h < table[_]:
-        h = table[_]
-    result += h
-h = 0
+    if H < table[_]:
+        H = table[_]
+    result += H
+H = 0
 for _ in range(999, idx2, -1):
-    if h < table[_]:
-        h = table[_]
-    result += h
+    if H < table[_]:
+        H = table[_]
+    result += H
 for _ in range(idx1, idx2+1):
     result += height
 

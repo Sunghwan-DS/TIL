@@ -43,8 +43,8 @@ dy = [1, 1, 1, 0, 0, -1, -1, -1]
 dx = [-1, 0, 1, -1, 1, -1, 0, 1]
 
 for _ in range(M):
-    y, x, z = map(int,input().split())
-    tree.append([z, y-1, x-1])
+    H, W, z = map(int, input().split())
+    tree.append([z, H - 1, W - 1])
 tree.sort()
 
 for year in range(K):

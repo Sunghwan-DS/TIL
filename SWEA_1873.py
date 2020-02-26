@@ -9,18 +9,18 @@ for case in range(1, T+1):
     tank = ['^', '<', '>', 'v']
 
     TF = False
-    for y in range(H):
-        for x in range(W):
-            if arr[y][x] in tank:
-                if arr[y][x] == '^':
+    for H in range(H):
+        for W in range(W):
+            if arr[H][W] in tank:
+                if arr[H][W] == '^':
                     dir = 0
-                elif arr[y][x] == '>':
+                elif arr[H][W] == '>':
                     dir = 1
-                elif arr[y][x] == 'v':
+                elif arr[H][W] == 'v':
                     dir = 2
-                elif arr[y][x] == '<':
+                elif arr[H][W] == '<':
                     dir = 3
-                arr[y][x] = '.'
+                arr[H][W] = '.'
                 TF = True
                 break
         if TF:
@@ -29,39 +29,39 @@ for case in range(1, T+1):
     for m in move:
         if m == 'U':
             dir = 0
-            ny = y + dy[dir]
-            nx = x + dx[dir]
+            ny = H + dy[dir]
+            nx = W + dx[dir]
             if 0 <= ny <= H-1 and 0 <= nx <= W-1 and arr[ny][nx] == '.':
-                y = ny
-                x = nx
+                H = ny
+                W = nx
 
         elif m == 'R':
             dir = 1
-            ny = y + dy[dir]
-            nx = x + dx[dir]
+            ny = H + dy[dir]
+            nx = W + dx[dir]
             if 0 <= ny <= H-1 and 0 <= nx <= W-1 and arr[ny][nx] == '.':
-                y = ny
-                x = nx
+                H = ny
+                W = nx
 
         elif m == 'D':
             dir = 2
-            ny = y + dy[dir]
-            nx = x + dx[dir]
+            ny = H + dy[dir]
+            nx = W + dx[dir]
             if 0 <= ny <= H-1 and 0 <= nx <= W-1 and arr[ny][nx] == '.':
-                y = ny
-                x = nx
+                H = ny
+                W = nx
 
         elif m == 'L':
             dir = 3
-            ny = y + dy[dir]
-            nx = x + dx[dir]
+            ny = H + dy[dir]
+            nx = W + dx[dir]
             if 0 <= ny <= H-1 and 0 <= nx <= W-1 and arr[ny][nx] == '.':
-                y = ny
-                x = nx
+                H = ny
+                W = nx
 
         elif m == 'S':
-            ny = y + dy[dir]
-            nx = x + dx[dir]
+            ny = H + dy[dir]
+            nx = W + dx[dir]
             while 0 <= ny <= H-1 and 0 <= nx <= W-1 and arr[ny][nx] not in '*#':
                 ny += dy[dir]
                 nx += dx[dir]
@@ -73,13 +73,13 @@ for case in range(1, T+1):
                     arr[ny][nx] = '.'
 
     if dir == 0:
-        arr[y][x] ='^'
+        arr[H][W] = '^'
     elif dir == 1:
-        arr[y][x] = '>'
+        arr[H][W] = '>'
     elif dir == 2:
-        arr[y][x] = 'v'
+        arr[H][W] = 'v'
     elif dir == 3:
-        arr[y][x] = '<'
+        arr[H][W] = '<'
 
     print("#%d"%(case), ''.join(arr[0]))
     for i in range(1, H):

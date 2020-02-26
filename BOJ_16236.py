@@ -36,11 +36,11 @@ while queue:
     TF = False
     for i in range(len(queue)):
         current = queue.pop(0)
-        y = current[0]
-        x = current[1]
+        H = current[0]
+        W = current[1]
         for dir in range(4):
-            ny = y+dy[dir]
-            nx = x+dx[dir]
+            ny = H + dy[dir]
+            nx = W + dx[dir]
             if 0 <= ny <= N-1 and 0 <= nx <= N-1 and arr[ny][nx] <= size and not visited[ny][nx]:
                 if 0 < arr[ny][nx] < size:
                     eat_lst.append([ny,nx])
