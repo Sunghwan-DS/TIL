@@ -1,19 +1,39 @@
-def make(idx, lst):     # n C r
-    if len(lst) == 3:     # r
-        print(lst)
-        return
+def check_size(y, x):
+    ny = y
+    nx = x
 
-    if idx == 5:
-        return
+    while ny <= N-1 and arr[ny][nx] != 0:
+        ny += 1
+    ny -= 1
 
-    lst.append(seq[idx])
-    make(idx+1, lst)
-    lst.pop()
-    make(idx+1, lst)
+    while nx <= N-1 and arr[ny][nx] != 0:
+        nx += 1
+    nx -= 1
+
+    dy = ny - y + 1
+    dx = nx - x + 1
+    res.append((dy*dx, dy, dx))
+
+    for i in range(y, ny+1):
+        for j in range(x, nx+1):
+            arr[i][j] = 0
+    return
 
 
+T = int(input())
+for case in range(1, T+1):
+    N = int(input())
+    arr = [list(map(int,input().split())) for _ in range(N)]
+    res = []
+    for i in range(N):
+        for j in range(N):
+            if arr[i][j] != 0:
+                check_size(i, j)
 
-seq = [i for i in range(1, 6)]  # [1, 2, 3, 4 ,5]   =>  n
+    res.sort()
+    ans = []
+    for A, i, j in res:
+        ans.append(i)
+        ans.append(j)
 
-
-make(0, [])
+    print("#%d %d"%(case, len(res)), *ans)
