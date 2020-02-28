@@ -1,39 +1,37 @@
-def check_size(y, x):
-    ny = y
-    nx = x
+def backtracking(data,k):
+    global maxsum, temp, start
+    if k == 3:
+        tempsum = temp % 10
+        if tempsum > maxsum:
+            maxsum = tempsum
+        return
 
-    while ny <= N-1 and arr[ny][nx] != 0:
-        ny += 1
-    ny -= 1
+    for i in range(start, 5):
+        if visited[i] == 0:
+            visited[i] = 1
+            temp += data[i]
+            start += 1
+            backtracking(data,k+1)
+            visited[i] = 0
+            temp -= data[i]
+            start -= 1
 
-    while nx <= N-1 and arr[ny][nx] != 0:
-        nx += 1
-    nx -= 1
+N = int(input())
+data = [list(map(int,input().split())) for _ in range(N)]
+ans = [0] * N
 
-    dy = ny - y + 1
-    dx = nx - x + 1
-    res.append((dy*dx, dy, dx))
+for i in range(N):
+    visited = [0] * 5
+    maxsum = 0
+    temp = 0
+    start = 0
+    backtracking(data[i],0)
+    ans[i] = maxsum
 
-    for i in range(y, ny+1):
-        for j in range(x, nx+1):
-            arr[i][j] = 0
-    return
+num = 0
 
+for i in range(N):
+    if ans[i] >= ans[num]:
+        num = i
 
-T = int(input())
-for case in range(1, T+1):
-    N = int(input())
-    arr = [list(map(int,input().split())) for _ in range(N)]
-    res = []
-    for i in range(N):
-        for j in range(N):
-            if arr[i][j] != 0:
-                check_size(i, j)
-
-    res.sort()
-    ans = []
-    for A, i, j in res:
-        ans.append(i)
-        ans.append(j)
-
-    print("#%d %d"%(case, len(res)), *ans)
+print(num+1)
