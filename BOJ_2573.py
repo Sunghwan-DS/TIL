@@ -12,7 +12,7 @@ def check(y, x):
     s = [(y, x)]
 
     while s:
-        y, x = s[-1]
+        y, x = s.pop()
 
         for dir in range(4):
             ny = y + dy[dir]
@@ -22,22 +22,20 @@ def check(y, x):
                 s.append((ny,nx))
                 visited[ny][nx] = True
                 cnt += 1
-                break
 
-        else:
-            s.pop()
     return cnt
 
 
 N, M = map(int,input().split())
 arr = [list(map(int,input().split())) for _ in range(N)]
 melt = [[0] * M for _ in range(N)]
+
 dy = [-1, 0 , 1, 0]
 dx = [0, 1, 0, -1]
 
 ice = []
-for i in range(N):
-    for j in range(M):
+for i in range(1, N-1):
+    for j in range(1, M-1):
         if arr[i][j] != 0:
             ice.append((i, j))
 
@@ -48,10 +46,9 @@ while ice:
         ans = cnt
         break
     cnt += 1
-
+    melt_co = []
     for i in range(len(ice) - 1, -1, -1):
         y, x = ice[i]
-        m = 0
 
         for dir in range(4):
             ny = y + dy[dir]
@@ -60,13 +57,14 @@ while ice:
             if arr[ny][nx] == 0:
                 melt[y][x] += 1
 
-    for i in range(len(ice) - 1, -1, -1):
-        y, x = ice[i]
-        if arr[y][x] - melt[y][x] <= 0:
+        if melt[y][x] > 0:
+            melt_co.append((y, x, i))
+
+    for y, x, i in melt_co:
+        arr[y][x] -= melt[y][x]
+        if arr[y][x] <= 0:
             arr[y][x] = 0
             ice.pop(i)
-        else:
-            arr[y][x] -= melt[y][x]
 
         melt[y][x] = 0
 
