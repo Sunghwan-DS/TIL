@@ -32,8 +32,4 @@ for day, p in enumerate(plan[1:], 1):
             if state[day-5][i] < 1000000:
                 state[day][i+2] = min(state[day-5][i] + 37000, state[day][i+2])
 
-ans = 1000000
-
-for j in range(max_ticket):
-    ans = min(ans, state[N][j])
-print(ans)
+print(min(state[N]))
