@@ -1,64 +1,45 @@
-def DFS(y, x, k, cnt):
-    global result
-    print(cnt,y, x)
-    if y - 1 >= 0:
-        if field[y][x] > field[y-1][x]:
-            DFS(y-1, x, k, cnt+1)
-        elif field[y][x] > field[y-1][x] - k:
-            pre = field[y-1][x]
-            field[y-1][x] = field[y][x] - 1
-            DFS(y-1, x, 0, cnt+1)
-            field[y-1][x] = pre
+def DFS(y, x, deep, k):
+    global K, ans
+    visited[y][x] = True
 
-    if y + 1 <= N-1:
-        if field[y][x] > field[y+1][x]:
-            DFS(y+1, x, k, cnt+1)
-        elif field[y][x] > field[y+1][x] - k:
-            pre = field[y+1][x]
-            field[y+1][x] = field[y][x] - 1
-            DFS(y+1, x, 0, cnt+1)
-            field[y+1][x] = pre
+    for dir in range(4):
+        ny = y + dy[dir]
+        nx = x + dx[dir]
 
-    if x - 1 >= 0:
-        if field[y][x] > field[y][x-1]:
-            DFS(y, x-1, k, cnt+1)
-        elif field[y][x] > field[y][x-1] - k:
-            pre = field[y][x-1]
-            field[y][x-1] = field[y][x] - 1
-            DFS(y, x-1, 0, cnt+1)
-            field[y][x-1] = pre
+        if 0 <= ny <= N-1 and 0 <= nx <= N-1 and not visited[ny][nx]:
+            if arr[ny][nx] < arr[y][x]:
+                DFS(ny, nx, deep+1, k)
 
-    if x + 1 <= N-1:
-        if field[y][x] > field[y][x+1]:
-            DFS(y, x+1, k, cnt+1)
-        elif field[y][x] > field[y][x+1] - k:
-            pre = field[y][x+1]
-            field[y][x+1] = field[y][x] - 1
-            DFS(y, x+1, 0, cnt+1)
-            field[y][x+1] = pre
+            elif k and arr[ny][nx] - K < arr[y][x]:
+                pre = arr[ny][nx]
+                arr[ny][nx] = arr[y][x] - 1
+                DFS(ny, nx, deep+1, 0)
+                arr[ny][nx] = pre
 
-    if result < cnt:
-        result = cnt
+    else:
+        ans = max(ans, deep)
 
-T = int(input())
-for case in range(1, T+1):
+    visited[y][x] = False
+
+
+dy = [-1, 0, 1, 0]
+dx = [0, 1, 0, -1]
+for tc in range(1, int(input())+1):
     N, K = map(int,input().split())
-    field = []
-    check_max = []
-    start = []
-    for _ in range(N):
-        field.append(list(map(int,input().split())))
-        check_max.append(max(field[_]))
-
-    max_num = max(check_max)
-
+    arr = [list(map(int,input().split())) for _ in range(N)]
+    highest = []
+    max_height = 0
     for i in range(N):
         for j in range(N):
-            if field[i][j] == max_num:
-                start.append([i, j])
+            if arr[i][j] > max_height:
+                max_height = arr[i][j]
+                highest = [(i, j)]
+            elif arr[i][j] == max_height:
+                highest.append((i, j))
+    ans = 0
 
-    result = 0
+    for y, x in highest:
+        visited = [[False] * N for _ in range(N)]
+        DFS(y, x, 1, 1)
 
-    for i in start:
-        DFS(i[0], i[1], K, 1)
-    print("#%d %d"%(case, result))
+    print("#%d"%(tc), ans)
