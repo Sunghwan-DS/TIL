@@ -1,0 +1,6 @@
+﻿  test.c
+C:\Users\전재인\Desktop\git\TIL\Project_Git\Project_Git\test.c(8,11): error C2057: 상수 식이 필요합니다.
+C:\Users\전재인\Desktop\git\TIL\Project_Git\Project_Git\test.c(8,11): error C2466: 상수 크기 0의 배열을 할당할 수 없습니다.
+C:\Users\전재인\Desktop\git\TIL\Project_Git\Project_Git\test.c(8,15): error C2133: 'arr': 알 수 없는 크기입니다.
+C:\Users\전재인\Desktop\git\TIL\Project_Git\Project_Git\test.c(7,1): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : 'scanf' 선언을 참조하십시오.
