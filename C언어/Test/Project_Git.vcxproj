@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BOJ_17144.c" />
     <ClCompile Include="test.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
