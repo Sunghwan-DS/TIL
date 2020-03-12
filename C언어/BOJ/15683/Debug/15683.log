@@ -1,0 +1,7 @@
+﻿  BOJ_15683.c
+C:\Users\전재인\Desktop\git\TIL\C언어\BOJ\15683\BOJ_15683.c(34,8): warning C4013: 'show'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+C:\Users\전재인\Desktop\git\TIL\C언어\BOJ\15683\BOJ_15683.c(105,6): error C2371: 'show': 재정의. 기본 형식이 다릅니다.
+C:\Users\전재인\Desktop\git\TIL\C언어\BOJ\15683\BOJ_15683.c(121,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : 'scanf' 선언을 참조하십시오.
+C:\Users\전재인\Desktop\git\TIL\C언어\BOJ\15683\BOJ_15683.c(124,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : 'scanf' 선언을 참조하십시오.
