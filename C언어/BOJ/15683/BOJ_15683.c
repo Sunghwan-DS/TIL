@@ -2,7 +2,21 @@
 
 int N, M, ans = 64, num_camera = 0, cctv[64][3], dy[4] = { -1, 0, 1, 0 }, dx[4] = { 0, 1, 0, -1 };
 
-int go(int idx, int now[8][8]) {
+void see(int new[][8], int y, int x, int dir) {
+	int ny, nx;
+	ny = y + dy[dir];
+	nx = x + dx[dir];
+
+	while (0 <= ny && ny <= N - 1 && 0 <= nx && nx <= M - 1 && new[ny][nx] != 6) {
+		if (new[ny][nx] == 0) {
+			new[ny][nx] = 9;
+		}
+		ny += dy[dir];
+		nx += dx[dir];
+	}
+}
+
+int go(int idx, int now[][8]) {
 	if (idx == num_camera) {
 		int res = 0;
 		for (int i = 0; i < N; i++) {
@@ -31,7 +45,7 @@ int go(int idx, int now[8][8]) {
 				}
 			}
 			
-			show(new, y, x, dir);
+			see(new, y, x, dir);
 			go(idx + 1, new);
 		}
 	}
@@ -45,8 +59,8 @@ int go(int idx, int now[8][8]) {
 				}
 			}
 
-			show(new, y, x, dir);
-			show(new, y, x, dir + 2);
+			see(new, y, x, dir);
+			see(new, y, x, dir + 2);
 			go(idx + 1, new);
 		}
 	}
@@ -60,8 +74,8 @@ int go(int idx, int now[8][8]) {
 				}
 			}
 
-			show(new, y, x, dir);
-			show(new, y, x, (dir + 1) % 4);
+			see(new, y, x, dir);
+			see(new, y, x, (dir + 1) % 4);
 			go(idx + 1, new);
 		}
 	}
@@ -75,14 +89,14 @@ int go(int idx, int now[8][8]) {
 				}
 			}
 
-			show(new, y, x, dir);
-			show(new, y, x, (dir + 1) % 4);
-			show(new, y, x, (dir + 2) % 4);
+			see(new, y, x, dir);
+			see(new, y, x, (dir + 1) % 4);
+			see(new, y, x, (dir + 2) % 4);
 			go(idx + 1, new);
 		}
 	}
 
-	else if (k == 4) {
+	else if (k == 5) {
 		
 		int new[8][8] = { 0 };
 		for (int i = 0; i < N; i++) {
@@ -91,10 +105,10 @@ int go(int idx, int now[8][8]) {
 			}
 		}
 
-		show(new, y, x, 0);
-		show(new, y, x, 1);
-		show(new, y, x, 2);
-		show(new, y, x, 3);
+		see(new, y, x, 0);
+		see(new, y, x, 1);
+		see(new, y, x, 2);
+		see(new, y, x, 3);
 		go(idx + 1, new);
 		
 	}
@@ -102,25 +116,12 @@ int go(int idx, int now[8][8]) {
 	return 0;
 }
 
-void show(int new[8][8], int y, int x, int dir) {
-	int ny, nx;
-	ny = y + dy[dir];
-	nx = x + dx[dir];
-
-	while (0 <= ny && ny <= N - 1 && 0 <= nx && nx <= M - 1 && new[ny][nx] != 6) {
-		if (new[ny][nx] = 0) {
-			new[ny][nx] = 9;
-		}
-	}
-}
-
-
 int main(void) {
 	int arr[8][8];
 
 	scanf("%d %d", &N, &M);
 	for (int i = 0; i < N; i++) {
-		for (int j = 0; i < M; j++) {
+		for (int j = 0; j < M; j++) {
 			scanf("%d", &arr[i][j]);
 			if (arr[i][j] != 0 && arr[i][j] != 6) {
 				cctv[num_camera][0] = i;
