@@ -1,66 +1,50 @@
+def check(c):
+    global s, m, b
+    if c == '(':
+        s += 1
+    elif c == ')':
+        s -= 1
+    elif c == '{':
+        m += 1
+    elif c == '}':
+        m -= 1
+    elif c == '[':
+        b += 1
+    elif c == ']':
+        b -= 1
+
+
 for tc in range(1, int(input()) + 1):
     p, q = map(int,input().split())
     s, m, b = 0, 0, 0
-    smb_list = []
     result = []
     word = input()
+
     for i in word:
-        if i == '(':
-            s += 1
-        elif i == ')':
-            s -= 1
-        elif i == '{':
-            m += 1
-        elif i == '}':
-            m -= 1
-        elif i == '[':
-            b += 1
-        elif i == ']':
-            b -= 1
+        check(i)
 
     for _ in range(p-1):
         word = input()
+        last_s, last_m, last_b = s, m, b
         num_dot = 0
-        for i in word:
-            if i == '.':
+        TF = True
+        for idx in range(len(word)):
+            if word[idx] == '.':
                 num_dot += 1
             else:
-                break
-        result.append((s, m, b, num_dot))
-
-        for i in word:
-            if i == '(':
-                s += 1
-            elif i == ')':
-                s -= 1
-            elif i == '{':
-                m += 1
-            elif i == '}':
-                m -= 1
-            elif i == '[':
-                b += 1
-            elif i == ']':
-                b -= 1
+                save = idx
+        for idx in range(save, len(word)):
+            check(word[idx])
+        result.append((last_s, last_m, last_b, num_dot))
 
     smb_list = []
     s, m, b = 0, 0, 0
-    for _ in range(q):
+    for _ in range(q-1):
         word = input()
         for i in word:
-            if i == '(':
-                s += 1
-            elif i == ')':
-                s -= 1
-            elif i == '{':
-                m += 1
-            elif i == '}':
-                m -= 1
-            elif i == '[':
-                b += 1
-            elif i == ']':
-                b -= 1
+            check(i)
         smb_list.append((s, m, b))
-    smb_list.pop()
+    input()
 
     possible = []
     for R in range(1, 21):
@@ -77,7 +61,6 @@ for tc in range(1, int(input()) + 1):
         res = set()
         for R, C, S in possible:
             res.add(R * s + C * m + S * b)
-
         if len(res) == 1:
             res = list(res)
             ans_list.append(res[0])

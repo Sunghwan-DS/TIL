@@ -1,3 +1,14 @@
+def go(length, start, new_visited):
+    global ans
+    for i in range(1, N+1):
+        if arr[start][i] and not new_visited[i]:
+            new_visited[i] = True
+            go(length+1, i, new_visited)
+            new_visited[i] = False
+
+    ans = max(ans, length)
+
+
 for tc in range(1, int(input()) + 1):
     N, M = map(int,input().split())
     arr = [[False] * (N+1) for _ in range(N+1)]
@@ -7,25 +18,10 @@ for tc in range(1, int(input()) + 1):
         arr[e][s] = True
 
     ans = 0
+    visited = [False] * (N + 1)
     for i in range(1, N+1):
-        now_visited = [False] * (N+1)
-        now_visited[i] = True
-        val_lst = [1] * (N + 1)
+        visited[i] = True
+        go(1, i, visited)
+        visited[i] = False
 
-        s = [i]
-        cnt = 0
-        while s:
-            now = s[-1]
-            cnt += 1
-            print(now, cnt)
-            for j in range(1, N+1):
-                if arr[now][j] and not now_visited[j] and cnt + 1 > val_lst[j]:
-                    s.append(j)
-                    val_lst[j] = cnt + 1
-                    now_visited[j] = True
-                    break
-            else:
-                now_visited[s.pop()] = False
-                cnt -= 2
-        ans = max(ans, max(val_lst))
     print("#%d"%(tc), ans)
