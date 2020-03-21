@@ -1,78 +1,90 @@
-def BFS(lst):
+# 2020.03.21
+# 22:00 ~ 22:32
+# BFS 구현
+# 시간:1004ms, 코드 길이:1810B
+
+def BFS(virus):
     global ans
-    q = []
-    for idx in lst:
-        q.append(virus[idx])
     visited = [[False] * N for _ in range(N)]
-    new = [arr[i][:] for i in range(N)]
+    q = virus[:]
     for y, x in q:
         visited[y][x] = True
-    result = 0
+
+    final_cnt = 2500
+    res = 0
+    cnt = 0
+    stop = False
     while q:
-        TF = True
-        for c in range(len(q)):
+        cnt += 1
+        for _ in range(len(q)):
             y, x = q.pop(0)
 
             for dir in range(4):
                 ny = y + dy[dir]
                 nx = x + dx[dir]
 
-                if 0 <= ny <= N-1 and 0 <= nx <= N-1 and not visited[ny][nx]:
-                    if new[ny][nx] == 0:
-                        new[ny][nx] = 2
-                        visited[ny][nx] = True
-                        q.append((ny, nx))
-                        TF = False
-
-                    elif new[ny][nx] == 2:
-                        visited[ny][nx] = True
-                        q.append((ny, nx))
-
-        if TF:
+                if 0 <= ny <= N-1 and 0 <= nx <= N-1 and not visited[ny][nx] and arr[ny][nx] != 1:
+                    q.append((ny, nx))
+                    visited[ny][nx] = True
+                    if arr[ny][nx] == 0:
+                        res += 1
+                        if res == need:
+                            final_cnt = cnt
+                            stop = True
+                            break
+            if stop:
+                break
+        if stop:
             break
-        result += 1
 
-
+    stop = False
     for i in range(N):
         for j in range(N):
-            if new[i][j] == 0:
-                return
+            if not visited[i][j] and arr[i][j] == 0:
+                stop = True
+                break
+        if stop:
+            break
+    else:
+        ans = min(ans, final_cnt)
 
-    if ans > result:
-        ans = result
 
-
-def order(idx, lst):
-    global cnt
-    if len(lst) == M:
-        BFS(lst)
+def make_virus(idx, virus):
+    if len(virus) == M:
+        BFS(virus)
         return
 
+    if idx == len(virus_co):
+        return
 
-    for i in range(lst[-1]+1, len(virus)):
-        if i not in lst:
-            lst.append(i)
-            order(idx + 1, lst)
-            lst.pop()
+    virus.append(virus_co[idx])
+    make_virus(idx + 1, virus)
+    virus.pop()
+    make_virus(idx + 1, virus)
 
-N, M = map(int,input().split())
-arr = [list(map(int,input().split())) for _ in range(N)]
-ans = 3000
+
 dy = [-1, 0, 1, 0]
 dx = [0, 1, 0, -1]
 
-virus = []
-cnt = 0
+N, M = map(int,input().split())
+arr = [list(map(int,input().split())) for _ in range(N)]
+need = 0
+virus_co = []
 for i in range(N):
     for j in range(N):
         if arr[i][j] == 2:
-            virus.append((i, j))
-            cnt += 1
+            virus_co.append((i, j))
+        elif arr[i][j] == 0:
+            need += 1
 
-for i in range(len(virus)):
-    order(1, [i])
+if need == 0:
+    print(0)
+    exit()
 
-if ans == 3000:
+ans = 2500
+make_virus(0, [])
+
+if ans == 2500:
     print(-1)
 else:
     print(ans)
