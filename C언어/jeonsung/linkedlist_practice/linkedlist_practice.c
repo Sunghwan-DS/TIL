@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-struct node {
+struct Node {
 	int data;
-	int * next;
+	struct Node *next;
 };
 
 struct linkedlist {
