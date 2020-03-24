@@ -5,16 +5,14 @@ struct Node {
 	struct Node *next;
 };
 
-struct linkedlist {
-	int current;
-	struct node now = { current };
-	struct node head = { -1000, now.next };
 
-};
 
 int main(void) {
-	struct node node1 = { 5 };
-	printf("%d", node1.current);
+	struct Node head;
+	struct Node node1 = { 5 };
+	printf("%d", node1.data);
+	printf("%d", head.data);
+	
 
 	return 0;
 }
