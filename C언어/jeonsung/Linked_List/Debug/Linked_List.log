@@ -1,0 +1,10 @@
+﻿  Linked_List.c
+C:\Users\전재인\Desktop\git\TIL\C언어\jeonsung\Linked_List\Linked_List.c(99,1): warning C4996: 'setbuf': This function or variable may be unsafe. Consider using setvbuf instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(395): message : 'setbuf' 선언을 참조하십시오.
+C:\Users\전재인\Desktop\git\TIL\C언어\jeonsung\Linked_List\Linked_List.c(100,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : 'scanf' 선언을 참조하십시오.
+C:\Users\전재인\Desktop\git\TIL\C언어\jeonsung\Linked_List\Linked_List.c(110,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : 'scanf' 선언을 참조하십시오.
+C:\Users\전재인\Desktop\git\TIL\C언어\jeonsung\Linked_List\Linked_List.c(114,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : 'scanf' 선언을 참조하십시오.
+  Linked_List.vcxproj -> C:\Users\전재인\Desktop\git\TIL\C언어\jeonsung\Debug\Linked_List.exe
