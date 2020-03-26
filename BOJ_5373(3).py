@@ -28,8 +28,7 @@ for _ in range(int(input())):
     R = [['b'] * 3 for _ in range(3)]
     n = int(input())
     data = list(input().split())
-    for d in data:
-        area, dir = d[0], d[1]
+    for area, dir in data:
         rotate(area)
         if dir == '-':
             rotate(area)
