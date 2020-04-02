@@ -1,7 +1,7 @@
 # 2020.04.02
-# 15:17 ~
-#
-#
+# 15:17 ~ 00:24
+# 탐색, 백트레킹 구현
+# 시간:56ms, 코드 길이:3069B
 
 def issafe (y, x):
     global N, M
@@ -37,20 +37,42 @@ def check_island(i, j, island_num):
     island_edge.append(edge)
 
 
-def cal_min(start, sequence, res):
-    global island_num, ans
-    new_sequence = sequence[:]
-    new_sequence.append(start)
-    if len(new_sequence) == island_num-2:
-        print(new_sequence)
-        print(res)
-        ans = min(ans, res)
+def check(lst):
+    global island_num
+    road_map = [[0] * island_num for _ in range(island_num)]
+    res = 0
+    for y, x in lst:
+        road_map[y][x] = bridge_info[y][x]
+        road_map[x][y] = bridge_info[x][y]
+        res += bridge_info[y][x]
+
+    visited = [False] * island_num
+    s = [2]
+    visited[2] = True
+    while s:
+        i = s.pop()
+        for j in range(2, island_num):
+            if road_map[i][j] and not visited[j]:
+                s.append(j)
+                visited[j] = True
+    for i in range(2, island_num):
+        if not visited[i]:
+            return 10000
+    return res
+
+
+def choose(idx, lst):
+    global island_num, roads_num, ans
+    if len(lst) == island_num-3:
+        ans = min(ans, check(lst))
+        return
+    if idx == roads_num:
         return
 
-    for end in range(2, island_num):
-        if bridge_info[start][end]:
-            if end not in new_sequence:
-                cal_min(end, new_sequence, res + bridge_info[start][end])
+    lst.append(roads[idx])
+    choose(idx+1, lst)
+    lst.pop()
+    choose(idx+1, lst)
 
 
 dy = [-1, 0, 1, 0]
@@ -66,7 +88,6 @@ for i in range(N):
         if arr[i][j] == 1:
             check_island(i, j, island_num)
             island_num += 1
-
 bridge_info = [[0] * island_num for _ in range(island_num)]
 
 for idx in range(2, island_num):
@@ -83,7 +104,6 @@ for idx in range(2, island_num):
                     if not issafe(ny, nx):
                         cnt = 0
                         break
-                    # print(ny, nx, arr[ny][nx], cnt)
                 if cnt >= 2:
                     if bridge_info[idx][arr[ny][nx]]:
                         bridge_info[idx][arr[ny][nx]] = min(bridge_info[idx][arr[ny][nx]], cnt)
@@ -92,22 +112,14 @@ for idx in range(2, island_num):
                         bridge_info[idx][arr[ny][nx]] = cnt
                         bridge_info[arr[ny][nx]][idx] = cnt
 
-for i in range(N):
-    print(arr[i])
-print()
-
-for i in range(island_num):
-    print(bridge_info[i])
-print()
-
-# for i in range(2, island_num):
-#     print(island_edge[i])
-# print()
-
+roads = []
+for i in range(2, island_num):
+    for j in range(i+1, island_num):
+        if bridge_info[i][j]:
+            roads.append((i, j))
+roads_num = len(roads)
 ans = 10000
-for start in range(2, island_num):
-    cal_min(start, [], 0)
-
+choose(0, [])
 if ans == 10000:
     print(-1)
 else:
