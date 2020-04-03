@@ -1,120 +1,50 @@
-def dt_check(d_num, dt):
-    if dt == table_0:
-        if d_num == 5:
-            return table_5
-        elif d_num == 10:
-            return table_10
-        elif d_num == 15:
-            return table_15
-        else:
-            return dt
-    else:
-        return dt
+# 2020.04.03
+# 10:38 ~ 12:28
+# 시뮬레이션 구현
+# 시간:132ms, 코드 길이:1412B
 
-def go(d1, d2, d3, d4, idx, score):
-    global result, dt1, dt2, dt3, dt4
-    if idx == 10:
-        if result < score:
-            result = score
+def game(idx, horses, score):
+    global ans
+    check_set = set()
+    start_end = 0
+    for i in range(4):
+        location = table[horses[i][0]][horses[i][1]]
+        if location == 0 or location == 1000:
+            start_end += 1
+        else:
+            check_set.add(location)
+    if len(check_set) + start_end < 4:
         return
 
-    n = dice[idx]
+    if idx == 10:
+        ans = max(ans, score%1000)
+        return
 
-    dt1 = dt_check(d1, dt1)
-    dt2 = dt_check(d2, dt2)
-    dt3 = dt_check(d3, dt3)
-    dt4 = dt_check(d4, dt4)
-
-
-    if dt1[d1+n] == dt2[d2] or dt1[d1+n] == dt3[d3] or dt1[d1+n] == dt4[d4]:
-        if dt1[d1+n] not in [16, 22, 24, 26, 28, 30]:
-            pass
-        # elif dt1 == dt2 or dt1 == dt3 or dt1 == dt4:
-        #     pass
-        else:
-            score1 = score + dt1[d1 + n]
-            go(d1 + n, d2, d3, d4, idx + 1, score1)
-    else:
-        score1 = score + dt1[d1 + n]
-        go(d1 + n, d2, d3, d4, idx + 1, score1)
-
-
-    if dt2[d2 + n] == dt1[d1] or dt2[d2 + n] == dt3[d3] or dt2[d2 + n] == dt4[d4]:
-        if dt2[d2+n] not in [16, 22, 24, 26, 28, 30]:
-            pass
-        # elif dt2 == dt1 or dt2 == dt3 or dt2 == dt4:
-        #     pass
-        else:
-            score2 = score + dt2[d2 + n]
-            go(d1, d2 + n, d3, d4, idx + 1, score2)
-    else:
-        score2 = score + dt2[d2 + n]
-        go(d1, d2 + n, d3, d4, idx + 1, score2)
-
-
-    if dt3[d3 + n] == dt1[d1] or dt3[d3 + n] == dt2[d2] or dt3[d3 + n] == dt4[d4]:
-        if dt3[d3+n] not in [16, 22, 24, 26, 28, 30]:
-            pass
-        # elif dt3 == dt1 or dt3 == dt2 or dt3 == dt4:
-        #     pass
-        else:
-            score3 = score + dt3[d3 + n]
-            go(d1, d2, d3 + n, d4, idx + 1, score3)
-    else:
-        score3 = score + dt3[d3 + n]
-        go(d1, d2, d3 + n, d4, idx + 1, score3)
-
-
-    if dt4[d4 + n] == dt1[d1] or dt4[d4 + n] == dt2[d2] or dt4[d4 + n] == dt3[d3]:
-        if dt4[d4 + n] not in [16, 22, 24, 26, 28, 30]:
-            pass
-        # elif dt4 == dt1 or dt4 == dt2 or dt4 == dt3:
-        #     pass
-        else:
-            score4 = score + dt4[d4 + n]
-            go(d1, d2, d3, d4 + n, idx + 1, score4)
-    else:
-        score4 = score + dt4[d4 + n]
-        go(d1, d2, d3, d4 + n, idx + 1, score4)
-
+    for i in range(4):
+        if i > 0 and horses[i-1][1] == 0:
+            continue
+        if table[horses[i][0]][horses[i][1]] == 1000:
+            continue
+        prev = (horses[i][0], horses[i][1])
+        horses[i][1] += dice[idx]
+        if table[horses[i][0]][horses[i][1]] == 10:
+            horses[i][0] = 1
+        elif table[horses[i][0]][horses[i][1]] == 20:
+            horses[i][0] = 2
+        elif table[horses[i][0]][horses[i][1]] == 30:
+            horses[i][0] = 3
+        game(idx+1, horses, score + table[horses[i][0]][horses[i][1]])
+        horses[i][0], horses[i][1] = prev
 
 
 dice = list(map(int,input().split()))
-table_0 = [2 * i for i in range(21)]
-table_5 = [1, 0, 0, 0, 0, 10, 13, 16, 19, 25, 30, 35, 40]
-table_10 = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 22, 24, 25, 30, 35, 40]
-table_15 = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 28, 27, 26, 25, 30, 35, 40]
-table_0[0] = 1
+table = []
+table.append([i for i in range(0, 41, 2)] + [1000] * 5)
+table.append([0] * 5 + [10, 13, 1016, 19, 25, 1030, 35, 40] + [1000] * 5)
+table.append([0] * 10 + [20, 1022, 1024, 25, 1030, 35, 40] + [1000] * 5)
+table.append([0] * 15 + [30, 1028, 27, 1026, 25, 1030, 35, 40] + [1000] * 5)
 
-table_0 += [0] * 30
-table_5 += [0] * 38
-table_10 += [0] * 34
-table_15 += [0] * 28
-
-# print(len(table_0), len(table_5), len(table_10), len(table_15))
-# #
-# # arr = []
-# # arr.append(table_0)
-# # arr.append(table_5)
-# # arr.append(table_10)
-# # arr.append(table_15)
-# #
-# # for i in range(4):
-# #     print(arr[i])
-
-dt1 = table_0
-dt2 = table_0
-dt3 = table_0
-dt4 = table_0
-
-
-# print(len(table_0), len(table_5), len(table_10), len(table_15))
-
-
-result = 0
-
-
-
-
-go(dice[0], 0, 0, 0, 1, table_0[dice[0]])
-print(result)
+horses = [[0, 0] for _ in range(4)]
+ans = 0
+game(0, horses, 0)
+print(ans)
