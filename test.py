@@ -18,21 +18,22 @@ class LinkedList:
         self.num_of_data += 1
 
     def insert(self, idx):
-        left = 0
         self.current = self.head
-        if idx != 0:
-            for i in range(idx):
-                self.current = self.current.next
-            left = self.current.data
+        for i in range(idx):
+            self.current = self.current.next
+        left = self.current.data
 
-        if self.current.next != None:
-            right = self.current.next.data
+        if self.current == self.tail:
+            right = self.head.next.data
             new = Node(left + right)
-            new.next = self.current.next
-            self.current.next = new
+            self.tail = new
         else:
-            new = Node(left)
-            self.current.next = new
+            right = self.current.next.data
+            save = self.current.next
+            new = Node(left + right)
+            new.next = save
+        self.current.next = new
+        self.num_of_data += 1
 
     def print(self):
         self.current = self.head
@@ -50,10 +51,14 @@ for tc in range(1, int(input())+1):
     data = list(map(int,input().split()))
     for num in data:
         LList.append(num)
-
     idx = 0
     for i in range(K):
-        idx = (idx+M)%(LList.num_of_data)
+        idx += M
+        if idx > LList.num_of_data:
+            idx = idx%(LList.num_of_data)
         LList.insert(idx)
 
-    print("#%d"%(tc), *LList.print())
+    ans = list(reversed(LList.print()))
+    if len(ans) > 10:
+        ans = ans[:10]
+    print("#%d"%(tc), *ans)
