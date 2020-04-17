@@ -1,3 +1,4 @@
+# 돌다리
 from collections import deque
 
 def solution(stones, k):
@@ -8,8 +9,6 @@ def solution(stones, k):
     res = ans
     idx = k
     while idx < len(stones):
-        print(*stack)
-        print(ans, res)
         if stones[idx] < ans:
             if stack[0] == res:
                 stack.popleft()
@@ -31,4 +30,4 @@ def solution(stones, k):
                 break
     return ans
 
-print(solution([2, 4, 5, 3, 2, 1, 4, 2, 5, 1, 2, 2], 3))
+print(solution([2, 4, 5, 3, 2, 1, 4, 2, 5, 1], 10))
