@@ -1,34 +1,15 @@
-from collections import deque
+def fill_BST(N, idx):
+    global cnt
+    if idx*2 <= N:
+        fill_BST(N, idx*2)
+    tree[idx] = cnt
+    cnt += 1
+    if idx*2+1 <= N:
+        fill_BST(N, idx*2+1)
 
-def solution(stones, k):
-    stack = deque()
-    for idx in range(k):
-        stack.append(stones[idx])
-    ans = max(stack)
-    res = ans
-    idx = k
-    while idx < len(stones):
-        print(*stack)
-        print(ans, res)
-        if stones[idx] < ans:
-            if stack[0] == res:
-                stack.popleft()
-                stack.append(stones[idx])
-                res = max(stack)
-                ans = min(ans, res)
-            else:
-                stack.popleft()
-                stack.append(stones[idx])
-            idx += 1
-        else:
-            if idx + k + 1 < len(stones):
-                stack = deque()
-                for i in range(idx+1, idx+k+1):
-                    stack.append(stones[i])
-                res = max(stack)
-                idx += k + 1
-            else:
-                break
-    return ans
-
-print(solution([2, 4, 5, 3, 2, 1, 4, 2, 5, 1, 2, 2], 3))
+for tc in range(1, int(input()) + 1):
+    N = int(input())
+    tree = [0] * (N+1)
+    cnt = 1
+    fill_BST(N, 1)
+    print("#%d"%(tc), tree[1], tree[N//2])
