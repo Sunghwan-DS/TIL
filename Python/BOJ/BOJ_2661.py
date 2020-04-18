@@ -14,9 +14,7 @@ def make_sequence(word):
 
     for i in range(1, 4):
         if word[-1] != str(i):
-            word += str(i)
-            make_sequence(word)
-            word = word[:-1]
+            make_sequence(word + str(i))
 
 
 N = int(input())
