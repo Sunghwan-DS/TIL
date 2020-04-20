@@ -1,15 +1,35 @@
-def fill_BST(N, idx):
-    global cnt
-    if idx*2 <= N:
-        fill_BST(N, idx*2)
-    tree[idx] = cnt
-    cnt += 1
-    if idx*2+1 <= N:
-        fill_BST(N, idx*2+1)
+N = int(input())
 
-for tc in range(1, int(input()) + 1):
-    N = int(input())
-    tree = [0] * (N+1)
-    cnt = 1
-    fill_BST(N, 1)
-    print("#%d"%(tc), tree[1], tree[N//2])
+row = [100] * N
+check = [False] * (N+1)
+result = 0
+
+
+
+def checking(index, i):
+
+    for j in range(index):
+        if abs(row[j] - i) == abs(j - index):
+
+            return True
+
+def play(index, N):
+    global result
+    if index == N:
+        result += 1
+        return
+
+    for i in range(1, N+1):
+        if check[i]:
+            continue
+        elif checking(index, i):
+
+            continue
+
+        check[i] = True
+        row[index] = i
+        play(index+1, N)
+        check[i] = False
+
+play(0, N)
+print(result)
