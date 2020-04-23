@@ -27,20 +27,33 @@ def marking(tu):
 def make(cur, res, board):
     global N, ans
     if ans < res:
-        if res == 2 * N - 2:
-            print(res)
-            exit()
-        else:
-            ans = res
+        ans = res
     if cur == len(board):
         return
 
-    for idx in range(cur, len(board)):
-        if not visited[board[idx][0]][board[idx][1]]:
-            save = marking(board[idx])
-            make(idx+1, res+1)
+    while cur < len(board) - (ans - res):
+        if not visited[board[cur][0]][board[cur][1]]:
+            save = marking(board[cur])
+            make(cur+1, res+1, board)
             for y, x in save:
                 visited[y][x] = False
+        cur += 1
+
+
+def make2(cur, res, board):
+    global N, ans2
+    if ans2 < res:
+        ans2 = res
+    if cur == len(board):
+        return
+
+    while cur < len(board) - (ans2 - res):
+        if not visited[board[cur][0]][board[cur][1]]:
+            save = marking(board[cur])
+            make2(cur+1, res+1, board)
+            for y, x in save:
+                visited[y][x] = False
+        cur += 1
 
 
 dy = [-1, -1, 1, 1]
@@ -60,5 +73,7 @@ for i in range(N):
 
 visited = [[False] * N for _ in range(N)]
 ans = 0
-make(0, 0)
-print(ans)
+make(0, 0, Black)
+ans2 = 0
+make2(0, 0, White)
+print(ans + ans2)
