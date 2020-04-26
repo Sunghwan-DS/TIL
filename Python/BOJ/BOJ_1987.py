@@ -4,9 +4,6 @@ def go(y, x, res):
     global ans, R, C
     if ans < res:
         ans = res
-        if ans == 26 or ans == R*C:
-            print(ans)
-            exit()
     for dirc in range(4):
         ny = y + dy[dirc]
         nx = x + dx[dirc]
