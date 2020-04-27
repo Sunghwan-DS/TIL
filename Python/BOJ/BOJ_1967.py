@@ -1,62 +1,61 @@
+from collections import deque
+
 class Node:
-    def __init__(self, num, val):
+    def __init__(self, num, val, parent = None):
         self.num = num
         self.val = val
-        self.left = None
-        self.right = None
+        self.parent = parent
+        self.children = []
 
 
 class Tree:
-    def __init__(self):
+    def __init__(self, N):
         self.root = Node(1, 0)
+        self.current = None
+        self.node_list = [0] * (N+1)
+        self.node_list[1] = self.root
 
 
     def append(self, parent, num, val):
-        now = self.root
-        stack = [now]
-
-        while stack:
-            now = stack.pop()
-            print(now.num)
-            if now.num == parent:
-                if not now.left:
-                    now.left = Node(num, val)
-                else:
-                    now.right = Node(num, val)
-                return
-
-            if now.right:
-                stack.append(now.right)
-            if now.left:
-                stack.append(now.left)
+        now = self.node_list[parent]
+        new = Node(num, val, now)
+        now.children.append(new)
+        self.node_list[num] = new
 
 
-    def PreOrder(self, now):
-        print(now.num, end='')
-        if now.left:
-            self.PreOrder(now.left)
-        if now.right:
-            self.PreOrder(now.right)
+    def BFS(self, node, N):
+        q = deque()
+        q.append((node, 0))
+        visited = [False] * (N+1)
+        visited[node.num] = True
+        max_length = 0
+        ans = 0
+        while q:
+            data = q.popleft()
+            self.current = data[0]
+            if data[1] > max_length:
+                max_length = data[1]
+                ans = data[0]
 
-    def InOrder(self, now):
-        if now.left:
-            self.InOrder(now.left)
-        print(now.num, end='')
-        if now.right:
-            self.InOrder(now.right)
+            if self.current.parent and not visited[self.current.parent.num]:
+                visited[self.current.parent.num] = True
+                q.append((self.current.parent, data[1] + self.current.val))
 
-    def PostOrder(self, now):
-        if now.left:
-            self.PostOrder(now.left)
-        if now.right:
-            self.PostOrder(now.right)
-        print(now.data, end='')
+            for child in self.current.children:
+                if not visited[child.num]:
+                    visited[child.num] = True
+                    q.append((child, data[1] + child.val))
+
+        self.current = ans
+        return max_length
+
 
 N = int(input())
-tree = Tree()
+tree = Tree(N)
 
 for i in range(N-1):
     parent, child, val = map(int,input().split())
     tree.append(parent, child, val)
 
-tree.InOrder(tree.root)
+tree.BFS(tree.root, N)
+print(tree.BFS(tree.current, N))
