@@ -1,10 +1,11 @@
+import sys
 from collections import deque
 
-N = int(input())
+N = int(sys.stdin.readline())
 Tree = [[0, [], 0] for _ in range(N+1)] # [[parent, child, val], ... , ]
 
 for _ in range(N-1):
-    parent, child, val = map(int,input().split())
+    parent, child, val = map(int,sys.stdin.readline().split())
     Tree[parent][1].append(child)
     Tree[child][0] = parent
     Tree[child][2] = val
