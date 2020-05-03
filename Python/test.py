@@ -1,53 +1,27 @@
-import sys
+T = int(input())
+for Count in range(T):
+    N, L = map(int, input().split())
+    score_list = [0]
+    cal_list = [0]
+    for _ in range(N):
+        score, cal = map(int, input().split())
+        F_score_list = score_list[:]
+        F_cal_list = cal_list[:]
+        if cal > L:
+            continue
+        for i in range(len(score_list)):
+            if cal_list[i] + cal <= L:
+                same_case = []
+                for ii, val in enumerate(cal_list):
+                    if val == cal_list[i]:
+                        same_case.append(score_list[ii])
+                if same_case:
+                    F_score_list[idx] = max(max(same_case), F_score_list[i]) + score
 
-def DFS(tree):
-    stack = [0]
-    n = 1
-    for t in tree:
-        if t == '0':
-            stack.append(n)
-            lst.append(n)
-            n += 1
-        else:
-            k = stack.pop()
-            lst.append(k)
-            parents[k] = stack[-1]
+                else:
+                    F_score_list.append(score_list[i] + score)
+                    F_cal_list.append(cal_list[i] + cal)
+        score_list = F_score_list[:]
+        cal_list = F_cal_list[:]
 
-input = sys.stdin.readline
-
-N = int(input())
-tree = input().strip()
-X, Y = map(int, input().split())
-lst = [0]
-parents = [0 for _ in range(N+1)]
-DFS(tree)
-# print(lst)
-print(parents)
-print(lst)
-X_parents = [lst[X]]
-Y_parents = [lst[Y]]
-print(X_parents, Y_parents)
-
-while parents[lst[X]]:
-    X_parents.append(parents[lst[X]])
-    lst[X] = parents[lst[X]]
-while parents[lst[Y]]:
-    Y_parents.append(parents[lst[Y]])
-    lst[Y] = parents[lst[Y]]
-
-cut = 1
-for x in X_parents:
-    for y in Y_parents:
-        if x == y:
-            if cut < x:
-                cut = x
-TF = False
-print(lst)
-for i in range(2 * N):
-    if lst[i] == cut:
-        if not TF:
-            TF = True
-            dx = i
-        else:
-            dy = i
-print(dx, dy)
+    print("#{} {}".format(Count + 1, max(score_list)))
