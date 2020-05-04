@@ -1,27 +1,63 @@
-T = int(input())
-for Count in range(T):
-    N, L = map(int, input().split())
-    score_list = [0]
-    cal_list = [0]
-    for _ in range(N):
-        score, cal = map(int, input().split())
-        F_score_list = score_list[:]
-        F_cal_list = cal_list[:]
-        if cal > L:
-            continue
-        for i in range(len(score_list)):
-            if cal_list[i] + cal <= L:
-                same_case = []
-                for ii, val in enumerate(cal_list):
-                    if val == cal_list[i]:
-                        same_case.append(score_list[ii])
-                if same_case:
-                    F_score_list[idx] = max(max(same_case), F_score_list[i]) + score
+n = int(input())
+ch = input()
+x, y = map(int,input().split())
 
-                else:
-                    F_score_list.append(score_list[i] + score)
-                    F_cal_list.append(cal_list[i] + cal)
-        score_list = F_score_list[:]
-        cal_list = F_cal_list[:]
+stack = []
+tree = [0]*999999
+tree2 = [0]
 
-    print("#{} {}".format(Count + 1, max(score_list)))
+a=0
+s=1
+try:
+    for i in ch:
+        if i == '0':
+            a+=1
+            if tree[s]==0:
+                tree[s]=a
+            else:
+                s+=1
+                tree[s]=a
+            s*=2
+            tree2.append(a)
+            stack.append(a)
+        else:
+            s=s//2
+            b=stack.pop()
+            tree2.append(b)
+
+    x=tree2[x]
+    y=tree2[y]
+    x=tree.index(x)
+    y=tree.index(y)
+    X=[]
+
+    while x>0:
+        X.append(x)
+        x//=2
+
+    Y=[]
+    while y>0:
+        Y.append(y)
+        y//=2
+
+    croot=0
+    for i in X:
+        for j in Y:
+            if i==j:
+                croot=i
+                break
+        if croot:
+            break
+    croot=tree[croot]
+    ans=[]
+
+    ans1=tree2.index(croot)
+except ValueError:
+    print("Error")
+    exit()
+ans.append(ans1)
+try:
+    ans.append(ans1+1+tree2[ans1+1:].index(croot))
+except:
+    pass
+print(*ans)
