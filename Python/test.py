@@ -1,63 +1,32 @@
-n = int(input())
-ch = input()
-x, y = map(int,input().split())
+import sys
+import time
+start = time.time()
 
-stack = []
-tree = [0]*999999
-tree2 = [0]
+def BT(y, x):
+    global C, cnt, isfound
+    if x == C:
+        cnt += 1
+        print(y, x)
+        isfound = True
+        return
+    dy = [-1, 0, 1]
 
-a=0
-s=1
-try:
-    for i in ch:
-        if i == '0':
-            a+=1
-            if tree[s]==0:
-                tree[s]=a
-            else:
-                s+=1
-                tree[s]=a
-            s*=2
-            tree2.append(a)
-            stack.append(a)
-        else:
-            s=s//2
-            b=stack.pop()
-            tree2.append(b)
+    for i in range(3):
+        ny = y + dy[i]
+        if 0 <= ny < R and field[ny][x] == '.':
+            field[ny][x] = 'x'
+            BT(ny, x+1)
+            if isfound: return
 
-    x=tree2[x]
-    y=tree2[y]
-    x=tree.index(x)
-    y=tree.index(y)
-    X=[]
 
-    while x>0:
-        X.append(x)
-        x//=2
+R, C = map(int, input().split())
+field = [list(input()) for j in range(R)]
+dy = [-1, 0, 1]
+cnt = 0
 
-    Y=[]
-    while y>0:
-        Y.append(y)
-        y//=2
+for i in range(R):
+    isfound = False
+    BT(i, 1)
 
-    croot=0
-    for i in X:
-        for j in Y:
-            if i==j:
-                croot=i
-                break
-        if croot:
-            break
-    croot=tree[croot]
-    ans=[]
-
-    ans1=tree2.index(croot)
-except ValueError:
-    print("Error")
-    exit()
-ans.append(ans1)
-try:
-    ans.append(ans1+1+tree2[ans1+1:].index(croot))
-except:
-    pass
-print(*ans)
+print(cnt)
+print("time :", time.time() - start)
