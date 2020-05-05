@@ -1,3 +1,5 @@
+# 알고리즘 틀림
+
 import sys
 import time
 start = time.time()

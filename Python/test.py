@@ -6,7 +6,6 @@ def BT(y, x):
     global C, cnt, isfound
     if x == C:
         cnt += 1
-        print(y, x)
         isfound = True
         return
     dy = [-1, 0, 1]
