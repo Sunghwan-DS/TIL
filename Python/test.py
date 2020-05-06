@@ -1,31 +1,20 @@
-import sys
-import time
-start = time.time()
+N = int(input())
+sentence = list(input().split())
+data = [0]
+for word in sentence:
+    data.append(len(word))
 
-def BT(y, x):
-    global C, cnt, isfound
-    if x == C:
-        cnt += 1
-        isfound = True
-        return
-    dy = [-1, 0, 1]
+DP = [0] + [1000000] * (len(data)-1)
+for cur in range(1, len(data)):
+    for new in range(cur, 0, -1):
+        new_list = data[new:cur+1]
+        check = sum(new_list) + (len(new_list) - 1)
+        if check <= N:
+            DP[cur] = min(DP[new-1] + (N - check) ** 3, DP[cur])
+        else:
+            break
 
-    for i in range(3):
-        ny = y + dy[i]
-        if 0 <= ny < R and field[ny][x] == '.':
-            field[ny][x] = 'x'
-            BT(ny, x+1)
-            if isfound: return
+# print(data)
+# print(DP)
 
-
-R, C = map(int, input().split())
-field = [list(input()) for j in range(R)]
-dy = [-1, 0, 1]
-cnt = 0
-
-for i in range(R):
-    isfound = False
-    BT(i, 1)
-
-print(cnt)
-print("time :", time.time() - start)
+print(DP[-1])
