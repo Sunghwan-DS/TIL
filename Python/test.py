@@ -1,20 +1,26 @@
-N = int(input())
-sentence = list(input().split())
-data = [0]
-for word in sentence:
-    data.append(len(word))
+from math import sin, cos, atan, pi
 
-DP = [0] + [1000000] * (len(data)-1)
-for cur in range(1, len(data)):
-    for new in range(cur, 0, -1):
-        new_list = data[new:cur+1]
-        check = sum(new_list) + (len(new_list) - 1)
-        if check <= N:
-            DP[cur] = min(DP[new-1] + (N - check) ** 3, DP[cur])
+def cal_actan(dy, dx):
+    if dx > 0:
+        if dy > 0:
+            return atan(dy/dx) * 180 / pi
+        elif dy < 0:
+            return atan(dy / dx) * 180 / pi + 360
         else:
-            break
+            return 0
 
-# print(data)
-# print(DP)
+    elif dx < 0:
+        if dy > 0:
+            return atan(dy/dx) * 180 / pi + 180
+        elif dy < 0:
+            return atan(dy/dx) * 180 / pi + 180
+        else:
+            return 180
 
-print(DP[-1])
+    elif dx == 0:
+        if dy > 0:
+            return 90
+        elif dy < 0:
+            return 270
+
+print(round(1.0000049, 5))
