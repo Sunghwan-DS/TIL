@@ -1,25 +1,3 @@
-def DFS(y, x):
-    global R, C
-    if len(ans) == R * C - 2 and y == R-1 and x == C-1:
-        print(''.join(ans))
-        exit()
-        return
-
-    for dirc in range(4):
-        ny = y + dy[dirc]
-        nx = x + dx[dirc]
-
-        if 0 <= ny <= R-1 and 0 <= nx <= C-1 and not visited[ny][nx]:
-            visited[ny][nx] = True
-            ans.append(direction[dirc])
-            DFS(ny, nx)
-            visited[ny][nx] = False
-            ans.pop()
-
-dy = [1, -1, 0, 0]
-dx = [0, 0, 1, -1]
-direction = ['D', 'U', 'R', 'L']
-
 R, C = map(int,input().split())
 arr = [list(map(int,input().split())) for _ in range(R)]
 
@@ -46,19 +24,34 @@ elif C%2:
     print(ans)
 
 else:
-    min_val = 1000
-    min_y = 0
-    min_x = 0
+    low = 1000
+    position = [-1, -1]
     for i in range(R):
-        for j in range(C):
-            if (i+j) % 2:
-                if arr[i][j] < min_val:
-                    min_val = arr[i][j]
-                    min_y = i
-                    min_x = j
+        if i % 2 == 0:
+            for j in range(1, C, 2):
+                if low > arr[i][j]:
+                    low = arr[i][j]
+                    position = [i, j]
+        else:
+            for j in range(0, C, 2):
+                if low > arr[i][j]:
+                    low = arr[i][j]
+                    position = [i, j]
 
-    visited = [[False] * C for _ in range(R)]
-    visited[min_y][min_x] = True
-    visited[0][0] = True
-    ans = []
-    DFS(0, 0)
+    ans = ('D' * (R - 1) + 'R' + 'U' * (R - 1) + 'R') * (position[1] // 2)
+    x = 2 * (position[1] // 2)
+    y = 0
+    xbound = 2 * (position[1] // 2) + 1
+    while x != xbound or y != R - 1:
+        if x < xbound and [y, xbound] != position:
+            x += 1
+            ans += 'R'
+        elif x == xbound and [y, xbound - 1] != position:
+            x -= 1
+            ans += 'L'
+        if y != R - 1:
+            y += 1
+            ans += 'D'
+
+    ans += ('R' + 'U' * (R - 1) + 'R' + 'D' * (R - 1)) * ((C - position[1] - 1) // 2)
+    print(ans)
