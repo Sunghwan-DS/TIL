@@ -1,26 +1,9 @@
-from math import sin, cos, atan, pi
+import time
 
-def cal_actan(dy, dx):
-    if dx > 0:
-        if dy > 0:
-            return atan(dy/dx) * 180 / pi
-        elif dy < 0:
-            return atan(dy / dx) * 180 / pi + 360
-        else:
-            return 0
+lst = [i for i in range(10000, 0, -1)]
+now = time.time()
 
-    elif dx < 0:
-        if dy > 0:
-            return atan(dy/dx) * 180 / pi + 180
-        elif dy < 0:
-            return atan(dy/dx) * 180 / pi + 180
-        else:
-            return 180
-
-    elif dx == 0:
-        if dy > 0:
-            return 90
-        elif dy < 0:
-            return 270
-
-print(round(1.0000049, 5))
+new_list = sorted(lst)
+print(lst)
+print(new_list)
+print(time.time() - now)
