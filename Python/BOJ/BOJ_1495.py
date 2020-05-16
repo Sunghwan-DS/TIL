@@ -12,6 +12,6 @@ for v in V:
     if len(next_record) == 0:
         print(-1)
         exit()
-    record = list(next_record)
+    record = next_record
 
 print(max(record))

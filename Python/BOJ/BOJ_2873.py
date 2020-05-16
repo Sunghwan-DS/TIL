@@ -16,11 +16,12 @@ if R%2:
 elif C%2:
     for idx in range(C):
         if idx%2 == 0:
-            ans += 'D' * (C-1)
+            ans += 'D' * (R-1)
             ans += 'R'
         else:
-            ans += 'U' * (C-1)
+            ans += 'U' * (R-1)
             ans += 'R'
+    ans = ans[:-1]
     print(ans)
 
 else:

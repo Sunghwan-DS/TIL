@@ -1,17 +1,44 @@
-# 용준's
-def solution(k, room_number):
-    answer = []
-    rooms = dict()
-    for room in room_number:
-        if not rooms.get(room):
-            rooms[room] = room + 1
-            answer.append(room)
+# def solution(n, cores):
+#     if n <= len(cores):
+#         answer = n
+#     else:
+#         n -= len(cores)
+#         time = 0
+#         while n != 0:
+#             time += 1
+#             for idx, num in enumerate(cores):
+#                 if time % num == 0:
+#                     n -= 1
+#                     if n == 0:
+#                         answer = idx + 1
+#                         break
+#     return answer
+#
+# print(solution(6, [1,2,3]))
+
+
+
+def solution(words):
+    record = {}
+    answer = 0
+    for word in words:
+        for idx in range(len(word), 0, -1):
+            check = word[:idx]
+            if check in record:
+                if record[check] > 1:
+                    answer += min(idx+1, len(word))
+                    print("break 추가", idx+1)
+                    break
+                else:
+                    record[check] += 1
+                    answer += 2
+            else:
+                record[check] = 1
         else:
-            arrive = rooms.get(room)
-            while rooms.get(arrive):
-                rooms[arrive] = rooms[rooms[arrive]] + 1
-                arrive = rooms.get(arrive)
-            rooms[arrive] = arrive + 1
-            rooms[room] = arrive
-            answer.append(arrive)
+            if record[word[:1]] <= 2:
+                answer += 1
+        print(record)
+        print(answer)
     return answer
+
+print(solution(['word', 'war', 'warrior', 'world']))
