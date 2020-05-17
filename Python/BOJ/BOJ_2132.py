@@ -6,7 +6,7 @@ def DFS(cur, res):
     global max_fruits, max_location, min_node, N
     if max_fruits < res:
         max_fruits = res
-        max_location = cur
+        max_location = [cur]
         for num in range(1, N+1):
             if num in visited:
                 break
@@ -17,6 +17,7 @@ def DFS(cur, res):
             if num in visited:
                 break
         min_node = min(min_node, num)
+        max_location.append(cur)
 
     for num in Tree[cur]:
         if num not in visited:
@@ -40,12 +41,15 @@ for num in range(1, N+1):
 visited = {}
 visited[1] = 1
 max_fruits = 0
-max_location = 0
+max_location = []
 min_node = 0
 DFS(1, fruits[1])
 
-visited = {}
-visited[max_location] = 1
+starts = max_location[:]
+print(starts)
 max_fruits = 0
-DFS(max_location, fruits[max_location])
+for start in starts:
+    visited = {}
+    visited[start] = 1
+    DFS(start, fruits[start])
 print(max_fruits, min_node)
