@@ -1,18 +1,16 @@
-import time
-now = time.time()
-num = 0
+class Test:
+    def __init__(self):
+        self.data = 0
+        self.no = 0
 
-for _ in range(10**8):
-    num += 1
-    num += 1
-    num += 1
-    num += 1
-    num += 1
-    num += 1
-    num += 1
-    num += 1
-    num += 1
-    num += 1
 
-print(num)
-print(time.time() - now)
+test = Test()
+
+for word in ('data', 'no'):
+    if word == 'data':
+        test.data += 1
+    elif word == 'no':
+        test.no += 1
+
+print(test.data)
+print(test.no)
