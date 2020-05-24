@@ -1,7 +1,7 @@
 import sys
 import random
-input = sys.stdin.readline
 
+input = sys.stdin.readline
 def cal(start, end, idx, A, B, num):
     if A <= start and end <= B:
         if num in segmentTree[idx]:
@@ -49,7 +49,7 @@ def make(start, end, idx):
 N, C = map(int, input().split())
 data = list(map(int, input().split()))
 M = int(input())
-segmentTree = [{} for _ in range(1048562)]
+segmentTree = [{} for _ in range(1050000)]
 make(1, N, 1)
 for _ in range(M):
     A, B = map(int, input().split())
@@ -57,7 +57,7 @@ for _ in range(M):
 
     check_color = {}
     for _ in range(20):
-        random_color = data[random.choice([i for i in range(A, B + 1)]) - 1]
+        random_color = data[random.randint(A, B)-1]
         if random_color in check_color:
             continue
         else:
