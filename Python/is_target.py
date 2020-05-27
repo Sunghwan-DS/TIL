@@ -43,34 +43,39 @@ def istarget(csv):
     for idx, value in enumerate(csv["targeting"]):
         y[idx] = targeting_class[value]
 
-    x_train, y_train = x[1:71], y[1:71]
-    x_test, y_test = x[71:], y[71:]
-    print('x_train')
-    print(x_train)
-    print('y_train')
-    print(y_train)
+    k = 71
+    x_train, y_train = x[1:k], y[1:k]
+    x_test, y_test = x[k:], y[k:]
+    # print('x_train')
+    # print(x_train)
+    # print('y_train')
+    # print(y_train)
     # print(len(x_train), len(y_train))
+    total = 0
+    for _ in range(10):
 
-    model = Sequential()
-    model.add(Dense(512, input_dim=7))
-    model.add(Activation('relu'))
-    model.add(Dropout(0.1))
-    model.add(Dense(512))
-    model.add(Activation('relu'))
-    model.add(Dropout(0.1))
-    model.add(Dense(2))
-    model.add(Activation('sigmoid'))
-    model.compile("rmsprop", "categorical_crossentropy", metrics=['accuracy'])
+        model = Sequential()
+        model.add(Dense(512, input_dim=7))
+        model.add(Activation('relu'))
+        model.add(Dropout(0.1))
+        model.add(Dense(512))
+        model.add(Activation('relu'))
+        model.add(Dropout(0.1))
+        model.add(Dense(2))
+        model.add(Activation('sigmoid'))
+        model.compile("rmsprop", "categorical_crossentropy", metrics=['accuracy'])
 
-    model.fit(x_train, y_train, epochs=30, batch_size=1)
-
-    score = model.evaluate(x_test, y_test)
+        model.fit(x_train, y_train, epochs=100, batch_size=1)
+        score = model.evaluate(x_test, y_test)
+        print(score[1] * 100)
+        total += score[1] * 100
+    total /= 10
     y_predict = model.predict(x_test)
-    print('y_predict')
-    print(y_predict)
-    print('y_test')
-    print(y_test)
-    print("score:", score)
+    # print('y_predict')
+    # print(y_predict)
+    # print('y_test')
+    # print(y_test)
+    print("정확도: %.2f" % (total))
     return
 
 csv = pd.read_csv("KAKAO_data.csv")
