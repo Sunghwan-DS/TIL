@@ -4,16 +4,19 @@ start = input()
 
 kings = ('Blackking', 'Whiteking')
 res = As[0] - 2
+cnt = 0
+
 for num in As[1:]:
     res = res ^ (num - 2)
 
 res = bin(res)[2:]
-cnt = 0
+check = False
 for c in res:
     if c == '1':
-        cnt += 1
+        check = True
+        break
 
-if cnt % 2:
+if check:
     print(start)
 else:
     for king in kings:
