@@ -1,1 +1,3 @@
-print(9502021000000 // 1000000000)
+import time
+
+print(time.time())
