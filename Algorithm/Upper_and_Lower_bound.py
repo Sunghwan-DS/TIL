@@ -9,7 +9,7 @@ def lower_bound(lst, target):
         else:
             high = m
     if lst[high] < target:
-        return 'no'
+        return len(lst)
     return high
 
 def upper_bound(lst, target):
@@ -27,6 +27,6 @@ def upper_bound(lst, target):
         return 'no'
     return high
 
-# lst = [1, 2, 4, 5, 7, 8]
-# print(lower_bound(lst, 1))
+lst = [5, 5, 5, 6]
+print(len(lst) - lower_bound(lst, 7))
 # print(upper_bound(lst, 1))
