@@ -45,20 +45,6 @@ def solution(info, query):
                 else:
                     high = m
             if lst[high] < target:
-                return 'no'
-            return high
-
-        def lower_bound(lst, target):
-            low = 0
-            high = len(lst) - 1
-
-            while low < high:
-                m = (low + high) // 2
-                if lst[m] < target:
-                    low = m + 1
-                else:
-                    high = m
-            if lst[high] < target:
                 return len(lst)
             return high
 
